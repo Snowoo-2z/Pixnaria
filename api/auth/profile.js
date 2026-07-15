@@ -1,4 +1,4 @@
-const { decodeSession, parseCookies, readBody, sendJson } = require('../_utils');
+const { cookie, decodeSession, encodeSession, parseCookies, readBody, sendJson } = require('../_utils');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' });
@@ -31,5 +31,7 @@ module.exports = async function handler(req, res) {
     joinedAt: new Date().toISOString().slice(0, 10)
   };
 
+  const nextSession = encodeSession({ ...session, pixnariaProfile: user });
+  res.setHeader('Set-Cookie', cookie('pixnaria_session', nextSession, { maxAge: 60 * 60 * 24 * 30, secure: req.headers.host !== 'localhost:8000' }));
   return sendJson(res, 200, { user });
 };

@@ -39,6 +39,18 @@ const PixnariaProjects = (() => {
   let projects = loadProjects();
   const $ = (selector) => document.querySelector(selector);
 
+  async function api(path, options = {}) {
+    const response = await fetch(path, {
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+      ...options
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Request failed: ${response.status}`);
+    return data;
+  }
+
+
   function loadProjects() {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || structuredClone(defaultProjects);
@@ -132,10 +144,12 @@ const PixnariaProjects = (() => {
           <h3>${project.title}</h3>
           <p>${project.description}</p>
           <div class="project-meta"><span>${project.nodes} nodes</span><span>${project.scripts} scripts</span><span>Updated ${project.updatedAt}</span></div>
+          ${project.githubUrl ? `<div class="project-meta"><span>GitHub: ${project.githubRepo}</span></div>` : `<div class="project-meta"><span>Not synced to GitHub yet</span></div>`}
           <div class="my-project-card__actions">
             <a class="button button--primary button--small" href="editor.html">Open</a>
             <button class="button button--ghost button--small" type="button" data-export-project="${project.id}">Export</button>
-            <button class="button button--ghost button--small" type="button" data-toggle-visibility="${project.id}">${project.visibility === "public" ? "Make private" : "Publish"}</button>
+            <button class="button button--ghost button--small" type="button" data-sync-github="${project.id}">${project.githubUrl ? "Re-sync" : "Create repo"}</button>
+            ${project.githubUrl ? `<a class="button button--ghost button--small" href="${project.githubUrl}" target="_blank" rel="noreferrer">Open repo</a>` : `<button class="button button--ghost button--small" type="button" data-toggle-visibility="${project.id}">${project.visibility === "public" ? "Make private" : "Publish"}</button>`}
             <button class="button button--ghost button--small danger" type="button" data-delete-project="${project.id}">Delete</button>
           </div>
         </div>
@@ -143,6 +157,7 @@ const PixnariaProjects = (() => {
     `).join("") : `<div class="empty-projects">No project found. Create or import a .pixna file.</div>`;
 
     grid.querySelectorAll("[data-export-project]").forEach((button) => button.addEventListener("click", () => exportProject(button.dataset.exportProject)));
+    grid.querySelectorAll("[data-sync-github]").forEach((button) => button.addEventListener("click", () => syncGitHubRepo(button.dataset.syncGithub)));
     grid.querySelectorAll("[data-toggle-visibility]").forEach((button) => button.addEventListener("click", () => toggleVisibility(button.dataset.toggleVisibility)));
     grid.querySelectorAll("[data-delete-project]").forEach((button) => button.addEventListener("click", () => deleteProject(button.dataset.deleteProject)));
     renderStorage();
@@ -193,6 +208,26 @@ const PixnariaProjects = (() => {
     project.updatedAt = "Now";
     saveProjects();
     render();
+  }
+
+  async function syncGitHubRepo(id) {
+    const project = projects.find((item) => item.id === id);
+    if (!project) return;
+    try {
+      const data = await api("/api/github/repos", {
+        method: "POST",
+        body: JSON.stringify({ title: project.title, description: project.description })
+      });
+      project.githubRepo = data.repo.full_name;
+      project.githubUrl = data.repo.html_url;
+      project.visibility = "public";
+      project.updatedAt = "Synced now";
+      saveProjects();
+      render();
+      alert(`GitHub repo created: ${data.repo.full_name}`);
+    } catch (error) {
+      alert(`GitHub sync failed: ${error.message}. Make sure you are logged in with GitHub and public_repo is authorized.`);
+    }
   }
 
   function exportProject(id) {

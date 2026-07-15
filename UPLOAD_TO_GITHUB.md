@@ -1,6 +1,6 @@
 # Upload this folder to GitHub
 
-Upload the contents of this `pixnaria/` folder to your public GitHub repository named `pixnaria`.
+Upload the **contents** of this `pixnaria/` folder to your public GitHub repository named `pixnaria`.
 
 ## Do not upload secrets
 
@@ -12,7 +12,7 @@ Only upload:
 .env.example
 ```
 
-## Important GitHub OAuth callback URLs
+## GitHub OAuth callback URLs
 
 Local:
 
@@ -36,4 +36,14 @@ GITHUB_CLIENT_SECRET
 GITHUB_CALLBACK_URL
 PUBLIC_BASE_URL
 SESSION_SECRET
+```
+
+## Current real GitHub features
+
+```txt
+Continue with GitHub OAuth
+Signed cookie session
+Pixnaria custom profile save
+Create public GitHub repo from My Projects
+Starter Pixnaria files committed to the repo
 ```
