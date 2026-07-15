@@ -1,0 +1,112 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pixnaria — logo concept</title>
+  <desc id="desc">Logo concept for Pixnaria: dark violet black modern neon abstract mark with Pixnaria wordmark.</desc>
+
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#2D0B59" stop-opacity="0.75"/>
+      <stop offset="42%" stop-color="#110A1F" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#05030A" stop-opacity="1"/>
+    </radialGradient>
+
+    <linearGradient id="violetStroke" x1="320" y1="230" x2="660" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F0ABFC"/>
+      <stop offset="0.22" stop-color="#C084FC"/>
+      <stop offset="0.52" stop-color="#8B5CF6"/>
+      <stop offset="0.78" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#D946EF"/>
+    </linearGradient>
+
+    <linearGradient id="wordGradient" x1="710" y1="350" x2="1180" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.35" stop-color="#F5F3FF"/>
+      <stop offset="0.72" stop-color="#C4B5FD"/>
+      <stop offset="1" stop-color="#A855F7"/>
+    </linearGradient>
+
+    <linearGradient id="nodeGradient" x1="280" y1="240" x2="650" y2="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D946EF"/>
+      <stop offset="0.5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.62  0 1 0 0 0.20  0 0 1 0 1.00  0 0 0 0.95 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="strongGlow" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="20" result="blur1"/>
+      <feGaussianBlur stdDeviation="42" in="SourceAlpha" result="blur2"/>
+      <feColorMatrix in="blur1" type="matrix" values="1 0 0 0 0.72  0 1 0 0 0.22  0 0 1 0 1.00  0 0 0 0.95 0" result="glow1"/>
+      <feColorMatrix in="blur2" type="matrix" values="1 0 0 0 0.38  0 1 0 0 0.10  0 0 1 0 0.85  0 0 0 0.55 0" result="glow2"/>
+      <feMerge>
+        <feMergeNode in="glow2"/>
+        <feMergeNode in="glow1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="panelShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="24" stdDeviation="45" flood-color="#000000" flood-opacity="0.52"/>
+    </filter>
+
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1400" height="900" fill="#05030A"/>
+  <rect width="1400" height="900" fill="url(#bgGlow)"/>
+  <rect width="1400" height="900" fill="url(#grid)" opacity="0.72"/>
+
+  <circle cx="300" cy="180" r="220" fill="#7C3AED" opacity="0.12" filter="url(#strongGlow)"/>
+  <circle cx="1110" cy="650" r="270" fill="#D946EF" opacity="0.09" filter="url(#strongGlow)"/>
+
+  <g filter="url(#panelShadow)">
+    <rect x="125" y="155" width="1150" height="590" rx="58" fill="#0B0712" fill-opacity="0.78" stroke="#2D1B46" stroke-width="1.5"/>
+    <rect x="126" y="156" width="1148" height="588" rx="57" fill="url(#bgGlow)" opacity="0.22"/>
+  </g>
+
+  <!-- Abstract Pixnaria mark: a futuristic P / node orbit hybrid -->
+  <g transform="translate(235 215)" filter="url(#strongGlow)">
+    <path d="M188 112 C188 72 220 42 268 42 H357 C428 42 480 91 480 158 C480 228 426 276 356 276 H276" stroke="url(#violetStroke)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M188 112 V430" stroke="url(#violetStroke)" stroke-width="34" stroke-linecap="round"/>
+    <path d="M276 276 L435 435" stroke="url(#violetStroke)" stroke-width="26" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- Pixel cuts / modern square details -->
+    <rect x="288" y="108" width="54" height="54" rx="16" fill="#F5F3FF" opacity="0.95"/>
+    <rect x="360" y="108" width="54" height="54" rx="16" fill="#A855F7"/>
+    <rect x="288" y="181" width="54" height="54" rx="16" fill="#7C3AED"/>
+
+    <!-- Node constellation -->
+    <path d="M99 96 L188 112 L288 135" stroke="url(#nodeGradient)" stroke-width="7" stroke-linecap="round" opacity="0.8"/>
+    <path d="M188 430 L112 489 L61 407" stroke="url(#nodeGradient)" stroke-width="7" stroke-linecap="round" opacity="0.72"/>
+    <path d="M435 435 L527 363 L480 158" stroke="url(#nodeGradient)" stroke-width="7" stroke-linecap="round" opacity="0.66"/>
+
+    <circle cx="99" cy="96" r="20" fill="#0B0712" stroke="#D946EF" stroke-width="8"/>
+    <circle cx="112" cy="489" r="20" fill="#0B0712" stroke="#8B5CF6" stroke-width="8"/>
+    <circle cx="61" cy="407" r="15" fill="#0B0712" stroke="#38BDF8" stroke-width="7"/>
+    <circle cx="527" cy="363" r="18" fill="#0B0712" stroke="#D946EF" stroke-width="7"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(690 350)">
+    <text x="0" y="76" font-family="Inter, Sora, Montserrat, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-5" fill="url(#wordGradient)">Pixnaria</text>
+    <text x="5" y="132" font-family="Inter, Sora, Montserrat, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="6.5" fill="#AFA7C8">IMAGINE · CREATE · SHARE</text>
+
+    <rect x="5" y="171" width="420" height="6" rx="3" fill="#2D1B46"/>
+    <rect x="5" y="171" width="168" height="6" rx="3" fill="url(#violetStroke)" filter="url(#softGlow)"/>
+  </g>
+
+  <!-- Small UI-like signature dots -->
+  <g opacity="0.75">
+    <circle cx="182" cy="205" r="8" fill="#D946EF"/>
+    <circle cx="207" cy="205" r="8" fill="#7C3AED"/>
+    <circle cx="232" cy="205" r="8" fill="#38BDF8"/>
+  </g>
+</svg>

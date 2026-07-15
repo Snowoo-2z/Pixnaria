@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/editor.css">
+  <link rel="stylesheet" href="styles/explore.css">
+</head>
+<body data-explore-page>
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="navbar__left">
+        <a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
+        <nav class="navbar__links"><a class="nav-link nav-link--active" href="explore.html">Explorer</a></nav>
+      </div>
+      <div class="navbar__right">
+        <a class="nav-link" href="messages.html">Messages</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <button class="lang-button" type="button" data-language-toggle>FR</button>
+        <div class="profile-wrap">
+          <button class="profile-button" type="button" data-profile-button aria-expanded="false"><span data-username>Snowoo</span><span data-avatar></span></button>
+          <div class="profile-menu" data-profile-menu><div class="profile-menu__head"><span data-avatar></span><span><strong data-username>Snowoo</strong><small>Creator · Admin</small></span></div><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><a href="admin.html">Admin</a></div>
+        </div>
+        <button class="icon-button menu-button" type="button" data-menu-button>☰</button>
+      </div>
+    </div>
+    <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><a href="profile.html">Profile</a><a href="admin.html">Admin</a></div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container page-hero__card">
+        <span class="kicker">Explore</span>
+        <h1><span class="gradient-text">Discover Pixnaria projects</span></h1>
+        <p>Explore trending games, recent animations, popular experiments and creative studios. This is still a mock page, but the structure prepares the future trending algorithm.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container explore-section-grid">
+        <div>
+          <div class="section__head">
+            <div class="section__title">
+              <span class="section-kicker">Projects</span>
+              <h2>Community creations</h2>
+              <p><span data-explore-count>0 projects</span> found. Click a project to open the public viewer.</p>
+            </div>
+          </div>
+
+          <div class="explore-controls">
+            <label class="explore-search" aria-label="Search projects">
+              <input data-explore-search placeholder="Search projects, authors, tags...">
+            </label>
+            <div class="explore-tabs" aria-label="Sort projects">
+              <button class="explore-tab active" type="button" data-explore-sort="trending">Trending</button>
+              <button class="explore-tab" type="button" data-explore-sort="recent">Recent</button>
+              <button class="explore-tab" type="button" data-explore-sort="popular">Popular</button>
+              <button class="explore-tab" type="button" data-explore-sort="featured">Featured</button>
+            </div>
+          </div>
+
+          <div class="explore-filters" aria-label="Project filters">
+            <button class="explore-filter active" type="button" data-explore-filter="all">All</button>
+            <button class="explore-filter" type="button" data-explore-filter="game">Games</button>
+            <button class="explore-filter" type="button" data-explore-filter="animation">Animations</button>
+            <button class="explore-filter" type="button" data-explore-filter="creative">Creative</button>
+            <button class="explore-filter" type="button" data-explore-filter="physics">Physics</button>
+            <button class="explore-filter" type="button" data-explore-filter="ui">UI</button>
+          </div>
+
+          <div class="project-grid" data-explore-projects style="margin-top:1rem"></div>
+        </div>
+
+        <aside class="explore-sidebar">
+          <article class="page-card">
+            <span class="section-kicker">Trending algorithm</span>
+            <h3>Current mock score</h3>
+            <p>Temporary formula: likes, favorites, views, recent activity and manual featured boost. We will refine it later.</p>
+            <ol class="trending-rank-list" data-trending-ranks></ol>
+          </article>
+
+          <article class="page-card">
+            <span class="section-kicker">Studios</span>
+            <h3>Creative studios</h3>
+            <p>Studios are future community spaces for groups of projects, collections and teams.</p>
+            <ul class="studio-list" data-studio-list></ul>
+          </article>
+
+          <article class="page-card">
+            <span class="section-kicker">Safety</span>
+            <h3>Community moderation</h3>
+            <p>Projects can be reported, comments are filtered, and Snowoo can manage reports from the admin panel.</p>
+            <a class="button button--ghost" href="admin.html">Open admin mock</a>
+          </article>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Explore projects, studios and community creations.</p></div>
+      <nav class="footer-links"><a href="our-team.html">Our Team</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+    </div>
+  </footer>
+
+  <script src="scripts/mock-data.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/news-admin.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/explore.js"></script>
+</body>
+</html>

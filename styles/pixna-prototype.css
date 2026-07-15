@@ -1,0 +1,105 @@
+.import-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.script-file-list {
+  display: grid;
+  gap: .45rem;
+}
+
+.editor-topbar__right {
+  flex-wrap: wrap;
+}
+
+.pixna-note {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.button.is-playing {
+  background: linear-gradient(135deg, #ef4444, #d946ef);
+  color: white;
+  box-shadow: 0 14px 40px rgba(239,68,68,.28);
+}
+
+.viewport.is-playing::after {
+  content: "ENGINE RUNNING";
+  position: absolute;
+  right: 1.15rem;
+  top: 1.15rem;
+  z-index: 3;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 .8rem;
+  border-radius: 999px;
+  color: #bbf7d0;
+  background: rgba(34,197,94,.13);
+  border: 1px solid rgba(34,197,94,.3);
+  font-weight: 900;
+  font-size: .76rem;
+  letter-spacing: .08em;
+}
+
+.physics-hud {
+  position: absolute;
+  left: 1.15rem;
+  top: 3.8rem;
+  z-index: 3;
+  max-width: min(420px, calc(100% - 2.3rem));
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 .75rem;
+  border-radius: 999px;
+  color: #d8b4fe;
+  background: rgba(11,7,18,.68);
+  border: 1px solid rgba(168,85,247,.22);
+  backdrop-filter: blur(10px);
+  font-size: .78rem;
+  font-weight: 850;
+}
+
+.viewport-platform {
+  outline: 1px solid rgba(255,255,255,.22);
+}
+
+.viewport.is-playing .viewport-platform {
+  animation: platformGlow 1.2s ease-in-out infinite alternate;
+}
+
+.viewport-player.is-running {
+  animation: playerPulse .75s ease-in-out infinite alternate;
+}
+
+.viewport-player.is-on-ground {
+  outline: 2px solid rgba(34,197,94,.62);
+}
+
+.viewport-player.is-jumping {
+  outline: 2px solid rgba(56,189,248,.62);
+}
+
+.viewport-player.is-falling {
+  outline: 2px solid rgba(245,158,11,.62);
+}
+
+@keyframes playerPulse {
+  from { transform: scale(1); box-shadow: 0 0 42px rgba(168,85,247,.45); }
+  to { transform: scale(1.08); box-shadow: 0 0 68px rgba(217,70,239,.68); }
+}
+
+@keyframes platformGlow {
+  from { box-shadow: 0 0 28px rgba(168,85,247,.35); }
+  to { box-shadow: 0 0 52px rgba(56,189,248,.38); }
+}
+
+@media (max-width: 760px) {
+  .editor-topbar__right .button,
+  .import-button {
+    min-height: 36px;
+    padding-inline: .7rem;
+    font-size: .8rem;
+  }
+}

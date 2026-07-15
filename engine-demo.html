@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixnaria Engine 0.1 Demo</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/engine-demo.css">
+</head>
+<body class="engine-demo-page">
+  <main class="engine-demo-shell">
+    <header class="engine-demo-topbar">
+      <a href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
+      <nav class="engine-demo-actions">
+        <a class="button button--ghost" href="editor.html">Back to Editor</a>
+        <a class="button button--ghost" href="PIXNARIA_ENGINE_SPEC.md">Engine Spec</a>
+      </nav>
+    </header>
+
+    <section class="engine-demo-card">
+      <div class="engine-demo-head">
+        <div>
+          <span class="pill pill--featured">Real Canvas Runtime</span>
+          <h1>Pixnaria Engine 0.1</h1>
+        </div>
+        <div class="engine-demo-actions">
+          <button class="button button--primary" type="button" data-engine-play>▶ Start</button>
+          <button class="button button--ghost" type="button" data-engine-render>Render once</button>
+          <button class="button button--ghost" type="button" data-engine-reset>Reset scene</button>
+        </div>
+      </div>
+
+      <div class="engine-canvas-wrap">
+        <canvas id="pixnaria-engine-canvas" width="1280" height="720" aria-label="Pixnaria engine canvas demo"></canvas>
+      </div>
+
+      <div class="engine-demo-bottom">
+        <pre class="engine-log" data-engine-log></pre>
+        <aside class="engine-info">
+          <h2>Controls</h2>
+          <ul>
+            <li>A / ← : move left</li>
+            <li>D / → : move right</li>
+            <li>W / ↑ / Space : jump</li>
+          </ul>
+          <p>This is the first real Pixnaria engine runtime. It uses Canvas, a scene graph, nodes, input, gravity and collisions.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { PixnariaEngine } from "./scripts/engine/pixnaria-core.js";
+    import { demoProject, sceneFromPixna } from "./scripts/engine/pixnaria-runtime.js";
+
+    const canvas = document.querySelector("#pixnaria-engine-canvas");
+    const logTarget = document.querySelector("[data-engine-log]");
+    const playButton = document.querySelector("[data-engine-play]");
+    const renderButton = document.querySelector("[data-engine-render]");
+    const resetButton = document.querySelector("[data-engine-reset]");
+
+    let project = demoProject();
+    let engine = new PixnariaEngine({ canvas, logTarget, settings: project.settings });
+
+    function loadDemo() {
+      project = demoProject();
+      engine.stop();
+      engine = new PixnariaEngine({ canvas, logTarget, settings: project.settings });
+      engine.setScene(sceneFromPixna(project));
+      engine.renderOnce();
+      playButton.textContent = "▶ Start";
+      engine.log("demo project loaded from .pixna JSON");
+    }
+
+    playButton.addEventListener("click", () => {
+      engine.toggle();
+      playButton.textContent = engine.running ? "■ Stop" : "▶ Start";
+    });
+
+    renderButton.addEventListener("click", () => {
+      engine.renderOnce();
+      engine.log("render once");
+    });
+
+    resetButton.addEventListener("click", loadDemo);
+
+    loadDemo();
+  </script>
+</body>
+</html>

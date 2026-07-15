@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/editor.css">
+  <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body data-admin-page>
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="navbar__left">
+        <a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
+        <nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav>
+      </div>
+      <div class="navbar__right">
+        <a class="nav-link" href="messages.html">Messages</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <a class="nav-link nav-link--active" href="admin.html">Admin</a>
+        <button class="lang-button" type="button" data-language-toggle>FR</button>
+        <div class="profile-wrap">
+          <button class="profile-button" type="button" data-profile-button><span data-username>Snowoo</span><span data-avatar></span></button>
+          <div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a></div>
+        </div>
+        <button class="icon-button menu-button" type="button" data-menu-button>☰</button>
+      </div>
+    </div>
+    <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><a href="profile.html">Profile</a></div>
+  </header>
+
+  <main class="admin-page">
+    <div class="container">
+      <section class="admin-hero">
+        <span class="kicker">Snowoo Admin</span>
+        <h1><span class="gradient-text">Pixnaria Control Center</span></h1>
+        <p>Mock administration panel for reports, temporary/permanent bans, moderator management, Featured Project selection, user safety and creator-only tools. Emails are visible here only because Snowoo is the administrator.</p>
+        <div class="hero__actions"><button class="button button--ghost" type="button" data-reset-admin>Reset admin demo</button><a class="button button--primary" href="messages.html">Open Messages</a></div>
+      </section>
+
+      <section class="admin-card-grid" aria-label="Admin stats">
+        <div class="admin-stat-card"><strong data-stat-reports>0</strong><small>Open reports</small></div>
+        <div class="admin-stat-card"><strong data-stat-users>0</strong><small>Users</small></div>
+        <div class="admin-stat-card"><strong data-stat-mods>0</strong><small>Moderators</small></div>
+        <div class="admin-stat-card"><strong data-stat-featured>0</strong><small>Featured Projects</small></div>
+      </section>
+
+      <div class="admin-grid">
+        <aside class="admin-sidebar" aria-label="Admin navigation">
+          <button class="admin-tab active" type="button" data-admin-tab="reports">Reports <small>Signalements</small></button>
+          <button class="admin-tab" type="button" data-admin-tab="users">Users <small>Emails/Bans</small></button>
+          <button class="admin-tab" type="button" data-admin-tab="mods">Moderators <small>Team</small></button>
+          <button class="admin-tab" type="button" data-admin-tab="featured">Featured <small>Projects</small></button>
+          <button class="admin-tab" type="button" data-admin-tab="news">News <small>Future link</small></button>
+          <button class="admin-tab" type="button" data-admin-tab="log">Log <small>Actions</small></button>
+        </aside>
+
+        <section>
+          <article class="admin-panel active" data-admin-panel="reports">
+            <div class="admin-panel__head"><div><span class="pill pill--featured">Reports</span><h2>Signalements</h2><p>Reports are sent to Snowoo. From here he can resolve them or ban the target user.</p></div></div>
+            <ul class="admin-list" data-report-list></ul>
+          </article>
+
+          <article class="admin-panel" data-admin-panel="users">
+            <div class="admin-panel__head"><div><span class="pill pill--featured">Users</span><h2>User administration</h2><p>Email addresses are hidden publicly but visible here to Snowoo for security and moderation.</p></div></div>
+            <div class="admin-card">
+              <h3>Ban settings</h3>
+              <div class="admin-form-row">
+                <label class="field"><span>Ban reason</span><input data-ban-reason value="Rule violation"></label>
+                <label class="field"><span>Temporary duration</span><input data-ban-duration value="7 days"></label>
+              </div>
+            </div>
+            <ul class="admin-list" data-user-list style="margin-top:1rem"></ul>
+          </article>
+
+          <article class="admin-panel" data-admin-panel="mods">
+            <div class="admin-panel__head"><div><span class="pill pill--featured">Moderators</span><h2>Manage moderators</h2><p>Snowoo can add and remove moderators. They appear on Our Team with join dates.</p></div></div>
+            <form class="admin-form" data-add-moderator-form>
+              <div class="admin-form-row"><input name="username" placeholder="Username" required><button class="button button--primary" type="submit">Add moderator</button></div>
+            </form>
+            <ul class="admin-list" data-moderator-list></ul>
+          </article>
+
+          <article class="admin-panel" data-admin-panel="featured">
+            <div class="admin-panel__head"><div><span class="pill pill--featured">Featured Project</span><h2>Featured Projects</h2><p>The public section is called Featured Project, not Featured by Snowoo.</p></div></div>
+            <form class="admin-form" data-add-featured-form>
+              <div class="admin-form-row"><input name="title" placeholder="Project title" required><input name="author" placeholder="Author"></div>
+              <button class="button button--primary" type="submit">Add Featured Project</button>
+            </form>
+            <ul class="admin-list" data-featured-list></ul>
+          </article>
+
+          <article class="admin-panel" data-admin-panel="news">
+            <div class="admin-panel__head"><div><span class="pill pill--featured">News</span><h2>News management</h2><p>The home page already has a Manage News mock. Later this admin tab will become the complete connected dashboard.</p></div><a class="button button--primary" href="index.html#news">Manage on home</a></div>
+            <div class="admin-card"><p>Future tools: create, edit, delete, pin, publish/unpublish, category, image, link, language FR/EN, show on Home or Explorer.</p></div>
+          </article>
+
+          <article class="admin-panel" data-admin-panel="log">
+            <div class="admin-panel__head"><div><span class="pill">Audit</span><h2>Admin action log</h2><p>Mock audit trail for moderation/admin actions.</p></div></div>
+            <pre class="admin-log" data-admin-log></pre>
+          </article>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Admin mock panel — frontend prototype only.</p></div>
+      <nav class="footer-links"><a href="our-team.html">Our Team</a><a href="privacy.html">Privacy</a><a href="index.html">Home</a></nav>
+    </div>
+  </footer>
+
+  <script src="scripts/mock-data.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/admin.js"></script>
+</body>
+</html>

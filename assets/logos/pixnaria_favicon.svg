@@ -1,0 +1,66 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pixnaria favicon</title>
+  <desc id="desc">Icon-only Pixnaria favicon: dark violet rounded square with abstract neon node mark.</desc>
+
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#2D0B59"/>
+      <stop offset="48%" stop-color="#110A1F"/>
+      <stop offset="100%" stop-color="#05030A"/>
+    </radialGradient>
+
+    <linearGradient id="stroke" x1="130" y1="84" x2="405" y2="425" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F0ABFC"/>
+      <stop offset="0.25" stop-color="#C084FC"/>
+      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="0.78" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#D946EF"/>
+    </linearGradient>
+
+    <linearGradient id="node" x1="76" y1="86" x2="440" y2="444" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D946EF"/>
+      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+
+    <filter id="glow" x="-90%" y="-90%" width="280%" height="280%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.68  0 1 0 0 0.18  0 0 1 0 1.00  0 0 0 0.9 0" result="colored"/>
+      <feMerge>
+        <feMergeNode in="colored"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#000000" flood-opacity="0.48"/>
+    </filter>
+  </defs>
+
+  <rect x="18" y="18" width="476" height="476" rx="112" fill="url(#bg)"/>
+  <rect x="19" y="19" width="474" height="474" rx="111" stroke="#2D1B46" stroke-width="2" opacity="0.9"/>
+  <circle cx="150" cy="100" r="140" fill="#7C3AED" opacity="0.12" filter="url(#glow)"/>
+  <circle cx="385" cy="390" r="160" fill="#D946EF" opacity="0.09" filter="url(#glow)"/>
+
+  <g filter="url(#glow)">
+    <!-- simplified P / engine core -->
+    <path d="M178 116 C178 83 204 60 244 60 H317 C374 60 416 99 416 153 C416 210 372 248 315 248 H250" stroke="url(#stroke)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M178 116 V404" stroke="url(#stroke)" stroke-width="34" stroke-linecap="round"/>
+    <path d="M250 248 L377 377" stroke="url(#stroke)" stroke-width="25" stroke-linecap="round" opacity="0.94"/>
+
+    <!-- pixel highlights -->
+    <rect x="259" y="114" width="47" height="47" rx="14" fill="#F5F3FF" opacity="0.98"/>
+    <rect x="320" y="114" width="47" height="47" rx="14" fill="#A855F7"/>
+    <rect x="259" y="176" width="47" height="47" rx="14" fill="#7C3AED"/>
+
+    <!-- node constellation -->
+    <path d="M91 103 L178 116 L282 138" stroke="url(#node)" stroke-width="7" stroke-linecap="round" opacity="0.82"/>
+    <path d="M178 404 L110 448 L63 376" stroke="url(#node)" stroke-width="7" stroke-linecap="round" opacity="0.74"/>
+    <path d="M377 377 L445 317 L416 153" stroke="url(#node)" stroke-width="7" stroke-linecap="round" opacity="0.68"/>
+
+    <circle cx="91" cy="103" r="18" fill="#0B0712" stroke="#D946EF" stroke-width="7"/>
+    <circle cx="110" cy="448" r="18" fill="#0B0712" stroke="#8B5CF6" stroke-width="7"/>
+    <circle cx="63" cy="376" r="14" fill="#0B0712" stroke="#38BDF8" stroke-width="6"/>
+    <circle cx="445" cy="317" r="16" fill="#0B0712" stroke="#D946EF" stroke-width="6"/>
+  </g>
+</svg>

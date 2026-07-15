@@ -1,0 +1,119 @@
+.template-library {
+  margin: .75rem 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,.035);
+  overflow: hidden;
+}
+
+.template-library summary {
+  cursor: pointer;
+  padding: .75rem .85rem;
+  color: var(--text);
+  font-weight: 900;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.template-library[open] summary {
+  margin-bottom: .75rem;
+}
+
+.template-library__filters {
+  display: flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+  padding: 0 .75rem .65rem;
+}
+
+.template-category {
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: .38rem .62rem;
+  font-size: .72rem;
+  font-weight: 900;
+}
+
+.template-category.active,
+.template-category:hover {
+  color: white;
+  border-color: rgba(168,85,247,.35);
+  background: rgba(168,85,247,.16);
+}
+
+.template-library .compact-field {
+  padding-inline: .75rem;
+}
+
+.template-library__grid {
+  max-height: 260px;
+  overflow: auto;
+  display: grid;
+  gap: .45rem;
+  padding: 0 .75rem .75rem;
+}
+
+.template-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: .6rem;
+  padding: .6rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(7,5,13,.38);
+  color: var(--text);
+  text-align: left;
+  transition: 150ms ease;
+}
+
+.template-card:hover,
+.template-card:focus-visible {
+  border-color: rgba(56,189,248,.38);
+  background: rgba(168,85,247,.12);
+  transform: translateY(-1px);
+}
+
+.template-card__icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(124,58,237,.62), rgba(217,70,239,.36));
+  box-shadow: 0 0 18px rgba(168,85,247,.16);
+  font-weight: 900;
+}
+
+.template-card__body {
+  min-width: 0;
+}
+
+.template-card strong,
+.template-card small {
+  display: block;
+}
+
+.template-card small {
+  margin-top: .12rem;
+  color: var(--muted);
+  line-height: 1.35;
+  font-size: .72rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.template-empty {
+  color: var(--muted);
+  margin: 0;
+  padding: .65rem;
+}
+
+@media (max-width: 760px) {
+  .template-library__grid {
+    max-height: 220px;
+  }
+}

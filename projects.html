@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Projects — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/editor.css">
+  <link rel="stylesheet" href="styles/projects.css">
+</head>
+<body data-projects-page>
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="navbar__left">
+        <a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
+        <nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav>
+      </div>
+      <div class="navbar__right">
+        <a class="nav-link" href="messages.html">Messages</a>
+        <a class="nav-link nav-link--active" href="projects.html">Projects</a>
+        <button class="lang-button" type="button" data-language-toggle>FR</button>
+        <div class="profile-wrap">
+          <button class="profile-button" type="button" data-profile-button><span data-username>Snowoo</span><span data-avatar></span></button>
+          <div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="messages.html">Messages</a><a href="auth.html">Login / Register</a></div>
+        </div>
+        <button class="icon-button menu-button" type="button" data-menu-button>☰</button>
+      </div>
+    </div>
+    <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="profile.html">Profile</a><a href="messages.html">Messages</a><a href="auth.html">Login / Register</a></div>
+  </header>
+
+  <main class="projects-page">
+    <div class="container">
+      <section class="page-hero__card">
+        <span class="kicker">Dashboard</span>
+        <h1><span class="gradient-text">My Projects</span></h1>
+        <p>Create, open, publish, delete, import and export Pixnaria projects visually. This mock dashboard prepares the future Firebase/Supabase project storage.</p>
+        <div class="storage-meter">
+          <strong data-storage-label>0 KB used</strong>
+          <small class="project-meta">Mock storage meter for future free-plan limits and project compression.</small>
+          <div class="storage-bar" data-storage-bar><span></span></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="projects-toolbar">
+          <label class="projects-search"><input data-project-search placeholder="Search your projects..."></label>
+          <div class="projects-actions">
+            <button class="button button--primary" type="button" data-open-project-modal>+ New Project</button>
+            <label class="button button--ghost import-button">Import .pixna<input type="file" accept=".pixna,.json,application/json" data-import-project hidden></label>
+            <button class="button button--ghost" type="button" data-reset-projects>Reset mock</button>
+          </div>
+        </div>
+
+        <div class="projects-filters">
+          <button class="project-filter active" type="button" data-project-filter="all">All</button>
+          <button class="project-filter" type="button" data-project-filter="public">Public</button>
+          <button class="project-filter" type="button" data-project-filter="private">Private</button>
+          <span class="pill"><span data-project-count>0 projects</span></span>
+        </div>
+
+        <div class="my-projects-grid" data-my-projects></div>
+      </section>
+    </div>
+  </main>
+
+  <dialog class="project-modal" data-project-modal>
+    <div class="project-modal__head">
+      <h2>Create project</h2>
+      <button class="icon-button" type="button" data-close-project-modal aria-label="Close">×</button>
+    </div>
+    <div class="project-modal__body">
+      <form class="project-form" data-create-project-form>
+        <label class="field"><span>Project title</span><input name="title" placeholder="My Pixnaria Game" required maxlength="60"></label>
+        <label class="field"><span>Description</span><textarea name="description" placeholder="Describe your project..." maxlength="220"></textarea></label>
+        <label class="field"><span>Visibility</span><select name="visibility"><option value="private">Private</option><option value="public">Public</option></select></label>
+        <div class="form-actions"><button class="button button--primary" type="submit">Create</button><button class="button button--ghost" type="button" data-close-project-modal>Cancel</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Projects support cloud save later and .pixna export now as a mock.</p></div>
+      <nav class="footer-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="editor.html">Editor</a></nav>
+    </div>
+  </footer>
+
+  <script src="scripts/mock-data.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/projects.js"></script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+.button--small {
+  min-height: 34px;
+  padding: 0 .75rem;
+  font-size: .82rem;
+}
+
+.node-toolbar {
+  display: grid;
+  gap: .6rem;
+  margin-bottom: .8rem;
+}
+
+.compact-field {
+  margin-bottom: .75rem;
+  font-size: .78rem;
+}
+
+.compact-field input,
+.compact-field select {
+  min-height: 38px;
+}
+
+.editor-node-tree {
+  display: grid;
+  gap: .36rem;
+}
+
+.editor-node {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .48rem;
+  padding: .52rem .58rem .52rem calc(.58rem + var(--depth, 0) * 1.05rem);
+  border-radius: 12px;
+  border: 1px solid transparent;
+  color: var(--muted);
+  background: rgba(255,255,255,.035);
+  text-align: left;
+  transition: 150ms ease;
+}
+
+.editor-node:hover,
+.editor-node:focus-visible {
+  color: var(--text);
+  background: rgba(168,85,247,.11);
+  border-color: rgba(168,85,247,.22);
+}
+
+.editor-node.is-selected {
+  color: white;
+  background: linear-gradient(135deg, rgba(124,58,237,.28), rgba(217,70,239,.14));
+  border-color: rgba(168,85,247,.38);
+  box-shadow: 0 0 25px rgba(168,85,247,.13);
+}
+
+.editor-node.is-hidden {
+  opacity: .55;
+}
+
+.editor-node.is-locked .editor-node__name::after {
+  content: "";
+}
+
+.editor-node__icon {
+  width: 22px;
+  height: 22px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(168,85,247,.16);
+  color: #e9d5ff;
+  font-size: .78rem;
+}
+
+.editor-node__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.editor-node__meta {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.node-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-top: .9rem;
+  padding-top: .8rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.inline-edit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .45rem;
+}
+
+.inspector-hint {
+  margin: -.2rem 0 .9rem;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: .88rem;
+}
+
+.viewport-badge {
+  position: absolute;
+  left: 1.15rem;
+  top: 1.15rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 .8rem;
+  border-radius: 999px;
+  color: #e9d5ff;
+  background: rgba(11,7,18,.74);
+  border: 1px solid rgba(168,85,247,.28);
+  backdrop-filter: blur(10px);
+  font-weight: 900;
+  font-size: .82rem;
+}
+
+.editor-tab-panel {
+  display: none;
+  height: calc(100% - 48px);
+  overflow: auto;
+}
+
+.editor-tab-panel.active {
+  display: block;
+}
+
+.editor-node.is-dragging {
+  opacity: .42;
+  transform: scale(.99);
+}
+
+.editor-node.is-drop-target {
+  border-color: rgba(56,189,248,.72);
+  background: rgba(56,189,248,.14);
+  box-shadow: inset 0 0 0 1px rgba(56,189,248,.25), 0 0 24px rgba(56,189,248,.16);
+}
+
+.assets-panel,
+.script-panel,
+.tutorial-panel {
+  padding: .85rem 1rem;
+}
+
+.assets-panel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .8rem;
+}
+
+.assets-panel__head small,
+.asset-card small,
+.script-status {
+  display: block;
+  color: var(--muted);
+  margin-top: .18rem;
+}
+
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: .75rem;
+}
+
+.asset-card {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem;
+  border-radius: 16px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.asset-card__preview {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(124,58,237,.75), rgba(217,70,239,.45));
+  box-shadow: 0 0 25px rgba(168,85,247,.22);
+  font-weight: 900;
+}
+
+.asset-card--cyan .asset-card__preview {
+  background: linear-gradient(135deg, rgba(56,189,248,.75), rgba(124,58,237,.45));
+}
+
+.asset-card--magenta .asset-card__preview {
+  background: linear-gradient(135deg, rgba(217,70,239,.75), rgba(124,58,237,.45));
+}
+
+.script-panel {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: .8rem;
+}
+
+.script-panel__sidebar,
+.script-panel__editor {
+  min-height: 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,.035);
+}
+
+.script-panel__sidebar {
+  padding: .75rem;
+  display: grid;
+  align-content: start;
+  gap: .55rem;
+}
+
+.script-file {
+  width: 100%;
+  text-align: left;
+  color: var(--muted);
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 12px;
+  padding: .65rem .75rem;
+  font-weight: 850;
+}
+
+.script-file.active,
+.script-file:hover {
+  color: white;
+  background: rgba(168,85,247,.15);
+  border-color: rgba(168,85,247,.25);
+}
+
+.script-panel__editor {
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.script-panel__bar {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  align-items: center;
+  padding: .6rem .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.script-status.is-dirty {
+  color: #fbbf24;
+}
+
+.script-panel textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+  resize: none;
+  border: 0;
+  outline: 0;
+  color: #e9d5ff;
+  background: rgba(7,5,13,.6);
+  padding: .9rem 1rem;
+  font: .92rem/1.65 "SFMono-Regular", Consolas, monospace;
+  tab-size: 4;
+}
+
+.tutorial-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .85rem;
+}
+
+.tutorial-panel article {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,.04);
+  padding: .9rem;
+}
+
+.tutorial-panel h3 {
+  margin: .65rem 0 .35rem;
+}
+
+.tutorial-panel p {
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .node-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inline-edit {
+    grid-template-columns: 1fr;
+  }
+
+  .assets-panel__head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .script-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .tutorial-panel {
+    grid-template-columns: 1fr;
+  }
+}

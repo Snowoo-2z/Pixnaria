@@ -1,0 +1,13 @@
+{
+  "name": "pixnaria-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pixnaria prototype with real GitHub OAuth dev server.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

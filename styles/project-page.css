@@ -1,0 +1,265 @@
+.project-public {
+  padding: clamp(1.4rem, 4vw, 3rem) 0 3rem;
+}
+
+.project-public__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.game-player-card,
+.project-side-card,
+.project-edit-card,
+.comments-card {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(24,16,38,.78), rgba(11,7,18,.82));
+  box-shadow: 0 18px 50px rgba(0,0,0,.24);
+  overflow: hidden;
+}
+
+.game-player-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.game-player-card__top h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  letter-spacing: -.04em;
+}
+
+.game-player {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 40%, rgba(124,58,237,.16), transparent 24rem),
+    #090712;
+  background-size: 38px 38px, 38px 38px, auto, auto;
+}
+
+.game-player::before {
+  content: "Pixnaria Player Mock";
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 3;
+  color: #d8b4fe;
+  background: rgba(11,7,18,.66);
+  border: 1px solid rgba(168,85,247,.25);
+  border-radius: 999px;
+  padding: .4rem .7rem;
+  font-weight: 900;
+  font-size: .75rem;
+}
+
+.public-player-stage {
+  position: absolute;
+  inset: 1.2rem;
+  border: 1px dashed rgba(168,85,247,.25);
+  border-radius: 24px;
+}
+
+.public-player-platform {
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 26%;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #d946ef);
+  box-shadow: 0 0 42px rgba(168,85,247,.38);
+}
+
+.public-player-character {
+  position: absolute;
+  left: 42%;
+  top: 42%;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff, #a855f7);
+  box-shadow: 0 0 58px rgba(168,85,247,.56);
+}
+
+.game-player.is-running .public-player-character {
+  animation: playerPulse .75s ease-in-out infinite alternate;
+}
+
+.project-side-card,
+.project-edit-card,
+.comments-card {
+  padding: 1rem;
+}
+
+.project-author {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .8rem;
+  border-radius: 18px;
+  background: rgba(255,255,255,.045);
+  margin: .9rem 0;
+}
+
+.project-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .55rem;
+  margin: 1rem 0;
+}
+
+.project-stat {
+  text-align: center;
+  padding: .75rem .45rem;
+  border-radius: 16px;
+  background: rgba(255,255,255,.045);
+}
+
+.project-stat strong,
+.project-stat small {
+  display: block;
+}
+
+.project-stat small,
+.project-side-card p,
+.project-edit-card p,
+.credits-list small,
+.comment-item small {
+  color: var(--muted);
+}
+
+.project-actions {
+  display: grid;
+  gap: .55rem;
+}
+
+.project-actions .button {
+  width: 100%;
+}
+
+.project-content {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-edit-card h2,
+.comments-card h2 {
+  margin-top: 0;
+}
+
+.editable-block {
+  display: grid;
+  gap: .65rem;
+}
+
+.editable-preview {
+  min-height: 90px;
+  color: var(--muted);
+  line-height: 1.7;
+  padding: .85rem;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,.035);
+  white-space: pre-wrap;
+}
+
+.editable-block textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  color: var(--text);
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  padding: .85rem;
+  outline: none;
+}
+
+.editable-block textarea:focus {
+  border-color: rgba(168,85,247,.55);
+}
+
+.credit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: .55rem;
+  margin-top: .8rem;
+}
+
+.credit-form input {
+  min-width: 0;
+  color: var(--text);
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: .72rem .8rem;
+}
+
+.credits-list,
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: .8rem 0 0;
+  display: grid;
+  gap: .55rem;
+}
+
+.credits-list li,
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem;
+  border-radius: 16px;
+  background: rgba(255,255,255,.045);
+}
+
+.comment-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .55rem;
+}
+
+.comment-form input {
+  min-width: 0;
+  color: var(--text);
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  padding: .75rem .95rem;
+}
+
+@media (max-width: 1020px) {
+  .project-public__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .game-player-card__top,
+  .credit-form,
+  .comment-form {
+    grid-template-columns: 1fr;
+    display: grid;
+    align-items: stretch;
+  }
+
+  .game-player {
+    min-height: 420px;
+  }
+
+  .project-stats {
+    grid-template-columns: 1fr;
+  }
+}

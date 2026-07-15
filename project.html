@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neon Platformer — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/editor.css">
+  <link rel="stylesheet" href="styles/touch-controls.css">
+  <link rel="stylesheet" href="styles/project-page.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="navbar__left">
+        <a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
+        <nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav>
+      </div>
+      <div class="navbar__right">
+        <a class="nav-link" href="messages.html">Messages</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <button class="lang-button" type="button" data-language-toggle>FR</button>
+        <div class="profile-wrap">
+          <button class="profile-button" type="button" data-profile-button><span data-username>Snowoo</span><span data-avatar></span></button>
+          <div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a></div>
+        </div>
+        <button class="icon-button menu-button" type="button" data-menu-button>☰</button>
+      </div>
+    </div>
+    <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="profile.html">Profile</a></div>
+  </header>
+
+  <main class="project-public">
+    <div class="container project-public__layout">
+      <section>
+        <article class="game-player-card">
+          <div class="game-player-card__top">
+            <div>
+              <span class="pill pill--featured">Featured Project</span>
+              <h1 data-project-title>Neon Platformer</h1>
+            </div>
+            <button class="button button--primary" type="button" data-public-play>▶ Play</button>
+          </div>
+
+          <div class="game-player" data-game-player>
+            <div class="public-player-stage"></div>
+            <div class="public-player-platform"></div>
+            <div class="public-player-character" data-public-player></div>
+            <div class="touch-controls" aria-label="Public project touch controls">
+              <div class="touch-controls__move">
+                <button class="touch-button" type="button" data-public-touch="a">←</button>
+                <button class="touch-button" type="button" data-public-touch="d">→</button>
+              </div>
+              <button class="touch-button touch-button--jump" type="button" data-public-touch=" ">Jump</button>
+            </div>
+          </div>
+        </article>
+
+        <div class="project-content">
+          <article class="project-edit-card">
+            <h2>Description</h2>
+            <div class="editable-preview" data-project-description></div>
+            <div class="editable-block" data-author-only hidden>
+              <label class="field">
+                <span>Edit description as author</span>
+                <textarea data-edit-description maxlength="800"></textarea>
+              </label>
+              <button class="button button--primary" type="button" data-save-description>Save description</button>
+            </div>
+          </article>
+
+          <article class="project-edit-card">
+            <h2>Credits</h2>
+            <p>Credit everyone who helped create this project: art, music, code, ideas or testing.</p>
+            <ul class="credits-list" data-credits-list></ul>
+            <form class="credit-form" data-credit-form data-author-only hidden>
+              <input name="name" placeholder="Name" maxlength="32" required>
+              <input name="role" placeholder="Role / contribution" maxlength="80" required>
+              <button class="button button--ghost button--small" type="submit">Add credit</button>
+            </form>
+          </article>
+
+          <article class="comments-card">
+            <h2>Comments</h2>
+            <form class="comment-form" data-comment-form>
+              <input placeholder="Write a comment" maxlength="80" required>
+              <button class="button button--primary" type="submit">Send</button>
+            </form>
+            <ul class="comment-list" data-comment-list></ul>
+          </article>
+        </div>
+      </section>
+
+      <aside class="project-side-card">
+        <div class="project-author">
+          <span class="avatar avatar--creator">S</span>
+          <span><strong data-project-author>Snowoo</strong><small>Project author</small></span>
+        </div>
+
+        <span class="pill" data-project-visibility>Public</span>
+        <p>This public page is the mock version of what users will see from Explorer or a profile.</p>
+
+        <div class="project-stats">
+          <div class="project-stat"><strong data-likes>128</strong><small>likes</small></div>
+          <div class="project-stat"><strong data-favorites>42</strong><small>favorites</small></div>
+          <div class="project-stat"><strong data-views>2.4k</strong><small>views</small></div>
+        </div>
+
+        <div class="project-actions">
+          <button class="button button--primary" type="button" data-like>♥ Like</button>
+          <button class="button button--ghost" type="button" data-favorite>★ Favorite</button>
+          <button class="button button--ghost" type="button" data-inside>Look inside</button>
+          <button class="button button--ghost danger" type="button" data-report>Report</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Public project viewer prototype.</p></div>
+      <nav class="footer-links"><a href="explore.html">Explorer</a><a href="our-team.html">Our Team</a><a href="contact.html">Contact Us</a></nav>
+    </div>
+  </footer>
+
+  <script src="scripts/mock-data.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/project-page.js"></script>
+</body>
+</html>

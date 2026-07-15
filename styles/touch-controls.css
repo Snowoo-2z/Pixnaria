@@ -1,0 +1,101 @@
+.touch-controls {
+  position: absolute;
+  inset: auto 1.1rem 1.1rem 1.1rem;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.touch-controls[hidden] {
+  display: none !important;
+}
+
+.touch-controls__move {
+  display: flex;
+  gap: .65rem;
+}
+
+.touch-button {
+  pointer-events: auto;
+  min-width: 62px;
+  height: 62px;
+  border-radius: 22px;
+  border: 1px solid rgba(168,85,247,.35);
+  color: white;
+  background: linear-gradient(180deg, rgba(24,16,38,.78), rgba(11,7,18,.72));
+  box-shadow: 0 16px 38px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(14px);
+  font-weight: 950;
+  font-size: 1.25rem;
+  touch-action: none;
+  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.touch-button:hover,
+.touch-button:focus-visible,
+.touch-button.is-pressed {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(56,189,248,.62);
+  background: linear-gradient(135deg, rgba(124,58,237,.82), rgba(217,70,239,.62));
+  box-shadow: 0 0 34px rgba(168,85,247,.28), 0 18px 48px rgba(0,0,0,.32);
+}
+
+.touch-button--jump {
+  min-width: 104px;
+  padding-inline: 1rem;
+  border-radius: 999px;
+  font-size: .95rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.viewport.has-touch-controls::before {
+  content: "Touch controls mock enabled";
+  position: absolute;
+  right: 1.15rem;
+  bottom: 5.2rem;
+  z-index: 3;
+  color: var(--muted);
+  background: rgba(11,7,18,.58);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 999px;
+  padding: .4rem .7rem;
+  font-weight: 850;
+  font-size: .72rem;
+  backdrop-filter: blur(10px);
+}
+
+@media (min-width: 900px) {
+  .touch-controls {
+    opacity: .72;
+  }
+
+  .touch-controls:hover,
+  .touch-controls:focus-within {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .touch-controls {
+    inset: auto .75rem .75rem .75rem;
+  }
+
+  .touch-button {
+    min-width: 54px;
+    height: 54px;
+    border-radius: 18px;
+  }
+
+  .touch-button--jump {
+    min-width: 92px;
+  }
+
+  .viewport.has-touch-controls::before {
+    display: none;
+  }
+}

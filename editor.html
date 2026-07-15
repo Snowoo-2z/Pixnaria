@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editor — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css"><link rel="stylesheet" href="styles/responsive.css"><link rel="stylesheet" href="styles/editor.css"><link rel="stylesheet" href="styles/editor-interactive.css"><link rel="stylesheet" href="styles/pixna-prototype.css"><link rel="stylesheet" href="styles/settings-panel.css"><link rel="stylesheet" href="styles/node-library.css"><link rel="stylesheet" href="styles/touch-controls.css"><link rel="stylesheet" href="styles/editor-engine-bridge.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="navbar__left"><a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a><nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav></div>
+      <div class="navbar__right"><a class="nav-link" href="projects.html">Projects</a><button class="lang-button" type="button" data-language-toggle>FR</button><div class="profile-wrap"><button class="profile-button" type="button" data-profile-button><span data-username>Snowoo</span><span data-avatar></span></button><div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="projects.html">Projects</a></div></div><button class="icon-button menu-button" type="button" data-menu-button>☰</button></div>
+    </div>
+    <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="profile.html">Profile</a></div>
+  </header>
+
+  <main class="editor-shell" aria-label="Pixnaria editor prototype">
+    <div class="editor-topbar">
+      <div class="editor-topbar__left">
+        <img class="editor-logo" src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria">
+        <span class="pill">Neon Platformer.pixna</span>
+      </div>
+      <div class="editor-topbar__right">
+        <button class="button button--ghost" type="button" data-save-project>Save</button>
+        <button class="button button--ghost" type="button" data-load-project>Load local</button>
+        <button class="button button--ghost" type="button" data-export-pixna>Export .pixna</button>
+        <button class="button button--ghost" type="button" data-run-canvas-engine>Canvas Engine</button>
+        <label class="button button--ghost import-button">
+          Import .pixna
+          <input type="file" accept=".pixna,.json,application/json" data-import-pixna hidden>
+        </label>
+        <button class="button button--primary" type="button" data-play-project>▶ Play</button>
+      </div>
+    </div>
+
+    <section class="editor-main">
+      <aside class="editor-panel" aria-label="Node manager">
+        <div class="editor-panel__head"><span>Nodes</span><button class="icon-button" type="button" data-add-node title="Add selected template">+</button></div>
+        <div class="editor-panel__body">
+          <div class="node-toolbar">
+            <label class="field compact-field">
+              <span>Quick add</span>
+              <select data-template-select></select>
+            </label>
+            <button class="button button--primary button--small" type="button" data-add-node>+ Add Node</button>
+          </div>
+
+          <details class="template-library" open>
+            <summary>Node Library</summary>
+            <div class="template-library__filters" data-template-categories></div>
+            <label class="field compact-field">
+              <span>Search template</span>
+              <input type="search" placeholder="Sprite, Player, Timer..." data-template-search>
+            </label>
+            <div class="template-library__grid" data-template-library></div>
+          </details>
+
+          <div class="field compact-field"><span>Search nodes</span><input type="search" placeholder="Search node" data-node-search></div>
+          <div class="editor-node-tree" data-editor-node-tree style="margin-top: .8rem"></div>
+          <div class="node-actions">
+            <button type="button" class="button button--ghost button--small" data-duplicate-node>Duplicate</button>
+            <button type="button" class="button button--ghost button--small" data-copy-node>Copy</button>
+            <button type="button" class="button button--ghost button--small" data-paste-node>Paste</button>
+            <button type="button" class="button button--ghost button--small" data-toggle-hidden>Hide</button>
+            <button type="button" class="button button--ghost button--small" data-toggle-locked>Lock</button>
+            <button type="button" class="button button--ghost button--small danger" data-delete-node>Delete</button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="viewport" aria-label="2D viewport">
+        <span class="viewport-badge" data-viewport-selected>Player · Player</span>
+        <div class="physics-hud" data-physics-hud>Physics: idle · Collider: ready</div>
+        <canvas class="engine-canvas" data-editor-engine-canvas width="1280" height="720" aria-label="Pixnaria real canvas engine preview"></canvas>
+        <div class="viewport-stage" data-mock-viewport-layer></div>
+        <div class="viewport-platform" data-viewport-platform data-mock-viewport-layer></div>
+        <div class="viewport-player" data-viewport-player data-mock-viewport-layer></div>
+
+        <div class="touch-controls" data-touch-controls aria-label="Touch controls mock">
+          <div class="touch-controls__move">
+            <button class="touch-button" type="button" data-touch-key="a" aria-label="Move left">←</button>
+            <button class="touch-button" type="button" data-touch-key="d" aria-label="Move right">→</button>
+          </div>
+          <button class="touch-button touch-button--jump" type="button" data-touch-key=" " aria-label="Jump">Jump</button>
+        </div>
+      </section>
+
+      <aside class="editor-panel" aria-label="Inspector">
+        <div class="editor-panel__head"><span>Inspector</span><span class="pill" data-inspector-type>Node2D</span></div>
+        <div class="editor-panel__body">
+          <h3 data-inspector-title>Player</h3>
+          <p class="inspector-hint" data-inspector-hint>Properties shown here are a mock preview of the future Pixnaria Inspector.</p>
+          <label class="field compact-field">
+            <span>Name</span>
+            <div class="inline-edit">
+              <input data-node-name-input value="Player">
+              <button class="button button--ghost button--small" type="button" data-rename-node>Rename</button>
+            </div>
+          </label>
+          <label class="field compact-field">
+            <span>Type</span>
+            <select data-node-type-select></select>
+          </label>
+          <div class="inspector-fields" data-inspector-fields></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="editor-bottom">
+      <div class="editor-tabs" role="tablist" aria-label="Editor bottom panels">
+        <button class="active" type="button" role="tab" data-editor-tab="console">Console</button>
+        <button type="button" role="tab" data-editor-tab="assets">Assets</button>
+        <button type="button" role="tab" data-editor-tab="script">Script</button>
+        <button type="button" role="tab" data-editor-tab="tutorial">Tutorial</button>
+        <button type="button" role="tab" data-editor-tab="settings">Settings</button>
+      </div>
+
+      <div class="editor-tab-panel active" data-editor-panel="console" role="tabpanel">
+        <pre class="console-output" data-console-output>Pixnaria Engine Preview
+&gt; ready(): Player initialized
+&gt; update(delta): waiting for input
+&gt; Tip: scripts open in a dedicated Script tab, not inside the Inspector.</pre>
+      </div>
+
+      <div class="editor-tab-panel" data-editor-panel="assets" role="tabpanel">
+        <div class="assets-panel">
+          <div class="assets-panel__head">
+            <div>
+              <strong>Project Assets</strong>
+              <small>Mock asset browser — images and sounds will be compressed later.</small>
+            </div>
+            <button class="button button--ghost button--small" type="button" data-add-asset>+ Add mock asset</button>
+          </div>
+          <div class="asset-grid" data-asset-grid></div>
+        </div>
+      </div>
+
+      <div class="editor-tab-panel" data-editor-panel="script" role="tabpanel">
+        <div class="script-panel">
+          <div class="script-panel__sidebar">
+            <strong>Scripts</strong>
+            <div class="script-file-list" data-script-list></div>
+            <button class="button button--ghost button--small" type="button" data-new-script>+ New script</button>
+          </div>
+          <div class="script-panel__editor">
+            <div class="script-panel__bar">
+              <span class="pill" data-current-script>Player.py</span>
+              <span class="script-status" data-script-status>Saved locally</span>
+            </div>
+            <textarea data-script-editor spellcheck="false">class Player(Node2D):
+    speed = export(250)
+
+    def ready(self):
+        print("Player ready")
+
+    def update(self, delta):
+        if input.is_key_down("right"):
+            self.x += self.speed * delta
+
+        if input.is_key_down("left"):
+            self.x -= self.speed * delta</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-tab-panel" data-editor-panel="tutorial" role="tabpanel">
+        <div class="tutorial-panel">
+          <article>
+            <span class="pill pill--featured">First launch tutorial</span>
+            <h3>Créer ton premier personnage</h3>
+            <p>1. Add a Player template. 2. Select Player.py. 3. Edit speed. 4. Press Play.</p>
+          </article>
+          <article>
+            <span class="pill">Node tip</span>
+            <h3>Drag & drop</h3>
+            <p>Drag a node onto another node to make it a child. The Scene root cannot be moved.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="editor-tab-panel" data-editor-panel="settings" role="tabpanel">
+        <div class="settings-panel">
+          <section class="settings-card">
+            <span class="pill pill--featured">Project Settings</span>
+            <h3>Project metadata</h3>
+            <div class="settings-grid">
+              <label class="field compact-field"><span>Project name</span><input data-setting="project.name" value="Neon Platformer"></label>
+              <label class="field compact-field"><span>Author</span><input data-setting="project.author" value="Snowoo"></label>
+              <label class="field compact-field"><span>Language</span><select data-setting="project.language"><option value="Python">Python</option></select></label>
+              <label class="field compact-field"><span>Visibility</span><select data-setting="project.visibility"><option value="private">Private</option><option value="public">Public</option></select></label>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <span class="pill">Scene Settings</span>
+            <h3>Viewport and physics</h3>
+            <div class="settings-grid">
+              <label class="field compact-field"><span>Scene name</span><input data-setting="scene.name" value="Scene"></label>
+              <label class="field compact-field"><span>Width</span><input type="number" data-setting="scene.width" value="1280"></label>
+              <label class="field compact-field"><span>Height</span><input type="number" data-setting="scene.height" value="720"></label>
+              <label class="field compact-field"><span>Background</span><input type="color" data-setting="scene.background" value="#090712"></label>
+              <label class="field compact-field"><span>Gravity</span><input type="number" data-setting="physics.gravity" value="1350"></label>
+              <label class="field compact-field"><span>Jump force</span><input type="number" data-setting="physics.jumpForce" value="560"></label>
+              <label class="field compact-field"><span>Touch controls</span><select data-setting="scene.touchControls"><option value="enabled">Enabled</option><option value="disabled">Disabled</option></select></label>
+              <label class="field compact-field"><span>Error help</span><select data-setting="project.errorHelp"><option value="enabled">Enabled</option><option value="disabled">Disabled</option></select></label>
+            </div>
+          </section>
+
+          <section class="settings-card settings-card--summary">
+            <span class="pill">.pixna metadata</span>
+            <h3>Export preview</h3>
+            <pre data-settings-preview>{}</pre>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts/mock-data.js"></script><script src="scripts/i18n.js"></script><script src="scripts/navigation.js"></script><script src="scripts/news-admin.js"></script><script src="scripts/app.js"></script><script src="scripts/editor-preview.js"></script><script type="module" src="scripts/editor-engine-bridge.js"></script>
+</body>
+</html>

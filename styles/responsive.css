@@ -1,0 +1,170 @@
+@media (max-width: 1100px) {
+  .logo-link img {
+    width: 190px;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-card {
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .news-layout,
+  .community-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-card {
+    position: static;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --nav-height: 68px;
+  }
+
+  .container {
+    width: min(100% - 28px, var(--container));
+  }
+
+  .navbar__links,
+  .navbar__right .nav-link,
+  .profile-wrap {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-grid;
+  }
+
+  .mobile-menu.is-open {
+    display: grid;
+  }
+
+  .section__head {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-card__visual .project-preview {
+    min-height: 240px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    justify-content: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-link img {
+    width: 160px;
+  }
+
+  .hero {
+    padding-top: 2.4rem;
+  }
+
+  .hero h1 {
+    letter-spacing: -0.065em;
+  }
+
+  .hero__actions .button {
+    width: 100%;
+  }
+
+  .hero__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .editor-card {
+    border-radius: 24px;
+    padding: 0.75rem;
+  }
+
+  .editor-card__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .code-panel pre {
+    font-size: 0.82rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-preview {
+    height: 180px;
+  }
+
+  .section {
+    padding: 2.4rem 0;
+  }
+
+  .featured-card__content {
+    padding: 0.4rem;
+  }
+
+  .featured-card__actions .button {
+    width: 100%;
+  }
+
+  .form-actions .button,
+  .admin-card .button {
+    width: 100%;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: min(100% - 20px, var(--container));
+  }
+
+  .logo-link img {
+    width: 138px;
+  }
+
+  .icon-button,
+  .lang-button {
+    min-width: 38px;
+    min-height: 38px;
+    padding: 0 0.65rem;
+  }
+
+  .kicker,
+  .section-kicker {
+    font-size: 0.75rem;
+  }
+
+  .project-card__stats {
+    gap: 0.55rem;
+  }
+
+  .news-card__meta,
+  .project-card__topline {
+    align-items: start;
+    flex-direction: column;
+  }
+}
