@@ -20,7 +20,7 @@ const PixnariaSession = (() => {
     }
     if (cached?.githubConnected) return cached;
     if (apiData?.github) {
-      const isSnowoo = apiData.github.login?.toLowerCase() === "snowoo";
+      const isSnowoo = ["snowoo-2z", "snowoo"].includes(apiData.github.login?.toLowerCase());
       const user = {
         id: isSnowoo ? "user_snowoo" : `pix_${apiData.github.id}`,
         username: apiData.github.login,
@@ -57,10 +57,12 @@ const PixnariaSession = (() => {
   function applyLoggedIn(user) {
     document.querySelectorAll("[data-username]").forEach((node) => node.textContent = user.displayName || user.username);
     document.querySelectorAll("[data-avatar]").forEach((node) => node.innerHTML = avatarHtml(user));
+    const profileHref = `/user/${encodeURIComponent(user.githubUsername || user.username)}`;
     document.querySelectorAll("[data-auth-link]").forEach((node) => {
       node.textContent = "Profile";
-      node.setAttribute("href", "profile.html");
+      node.setAttribute("href", profileHref);
     });
+    document.querySelectorAll('a[href="profile.html"]').forEach((node) => node.setAttribute("href", profileHref));
     document.querySelectorAll("[data-requires-auth]").forEach((node) => node.hidden = false);
     document.querySelectorAll("[data-guest-only]").forEach((node) => node.hidden = true);
   }

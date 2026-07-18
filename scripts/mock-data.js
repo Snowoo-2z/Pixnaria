@@ -1,14 +1,14 @@
 const PIXNARIA_DEFAULT_USER = {
-  id: "user_snowoo",
-  username: "Snowoo",
-  displayName: "Snowoo",
-  role: "creator",
-  badges: ["Creator", "Admin"],
-  joinedAt: "2026-07-13",
-  avatarInitial: "S",
-  avatarColor: "creator",
-  email: "snowoo@example.hidden",
-  emailVerified: true
+  id: "guest",
+  username: "Guest",
+  displayName: "Guest",
+  role: "guest",
+  badges: [],
+  joinedAt: "",
+  avatarInitial: "?",
+  avatarColor: "default",
+  emailVerified: false,
+  githubConnected: false
 };
 
 const PIXNARIA_USER = JSON.parse(localStorage.getItem("pixnaria_mock_user") || "null") || PIXNARIA_DEFAULT_USER;
@@ -17,7 +17,7 @@ const PIXNARIA_PROJECTS = [
   {
     id: "neon-platformer",
     title: "Neon Platformer",
-    author: "Snowoo",
+    author: "Snowoo-2z",
     tag: "Game",
     description: "A fast 2D platformer built with nodes and Python movement.",
     likes: 128,
@@ -68,64 +68,33 @@ const PIXNARIA_DEFAULT_NEWS = [
   {
     id: "news_welcome",
     category: "announcement",
-    title: {
-      en: "Welcome to Pixnaria",
-      fr: "Bienvenue sur Pixnaria"
-    },
-    content: {
-      en: "The first community coding platform concept is now taking shape.",
-      fr: "Le premier concept de plate-forme communautaire de coding prend forme."
-    },
-    date: "2026-07-13",
+    title: { en: "Pixnaria is live", fr: "Pixnaria est en ligne" },
+    content: { en: "Create, code and publish open projects with GitHub.", fr: "Crée, code et publie des projets ouverts avec GitHub." },
+    date: "2026-07-15",
     pinned: true,
     important: false,
     published: true
   },
   {
-    id: "news_editor",
+    id: "news_engine",
     category: "update",
-    title: {
-      en: "Node manager design started",
-      fr: "Design du gestionnaire de nodes commencé"
-    },
-    content: {
-      en: "Pixnaria will use a scene tree, Python scripts, and a custom 2D engine.",
-      fr: "Pixnaria utilisera une arborescence de scène, des scripts Python et un moteur 2D personnalisé."
-    },
-    date: "2026-07-13",
+    title: { en: "Canvas engine connected", fr: "Moteur Canvas connecté" },
+    content: { en: "The editor can now launch the Pixnaria Canvas runtime.", fr: "L’éditeur peut maintenant lancer le runtime Canvas Pixnaria." },
+    date: "2026-07-15",
     pinned: false,
     important: true,
-    published: true
-  },
-  {
-    id: "news_contest",
-    category: "contest",
-    title: {
-      en: "Contests will arrive later",
-      fr: "Les concours arriveront plus tard"
-    },
-    content: {
-      en: "Creator-managed contests are planned for the future community hub.",
-      fr: "Des concours gérés par le créateur sont prévus pour le futur hub communautaire."
-    },
-    date: "2026-07-13",
-    pinned: false,
-    important: false,
     published: true
   }
 ];
 
 const PIXNARIA_TEAM = [
-  {
-    username: "Snowoo",
-    role: "Creator / Admin",
-    joinedAt: "2026-07-13",
-    top: true
-  },
-  {
-    username: "ModeratorSoon",
-    role: "Moderator",
-    joinedAt: "Soon",
-    top: false
-  }
+  { username: "Snowoo-2z", role: "Creator / Admin", joinedAt: "2026-07-13", top: true },
+  { username: "ModeratorSoon", role: "Moderator", joinedAt: "Soon", top: false }
 ];
+
+
+window.PIXNARIA_DEFAULT_USER = PIXNARIA_DEFAULT_USER;
+window.PIXNARIA_USER = PIXNARIA_USER;
+window.PIXNARIA_PROJECTS = PIXNARIA_PROJECTS;
+window.PIXNARIA_DEFAULT_NEWS = PIXNARIA_DEFAULT_NEWS;
+window.PIXNARIA_TEAM = PIXNARIA_TEAM;

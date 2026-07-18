@@ -1,6 +1,6 @@
 const PixnariaExplore = (() => {
   const extraProjects = [
-    { id: "menu-magic", title: "Menu Magic", author: "Snowoo", tag: "UI", description: "A polished animated menu made with UI nodes.", likes: 64, favorites: 21, views: "740", color: "violet", featured: false, createdAt: 5 },
+    { id: "menu-magic", title: "Menu Magic", author: "Snowoo-2z", tag: "UI", description: "A polished animated menu made with UI nodes.", likes: 64, favorites: 21, views: "740", color: "violet", featured: false, createdAt: 5 },
     { id: "tilemap-cave", title: "Tilemap Cave", author: "Blockless", tag: "Game", description: "A cave exploration scene using Tilemap and Sprite nodes.", likes: 112, favorites: 36, views: "1.5k", color: "cyan", featured: false, createdAt: 2 },
     { id: "particles-demo", title: "Particles Demo", author: "VioletLab", tag: "Animation", description: "Neon particles, timers and Python events.", likes: 58, favorites: 16, views: "680", color: "magenta", featured: false, createdAt: 1 },
     { id: "jump-test", title: "Jump Test", author: "OrbitKid", tag: "Physics", description: "Testing collisions, gravity and Player templates.", likes: 43, favorites: 13, views: "520", color: "indigo", featured: false, createdAt: 0 }

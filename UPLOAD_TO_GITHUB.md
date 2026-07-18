@@ -2,48 +2,13 @@
 
 Upload the **contents** of this `pixnaria/` folder to your public GitHub repository named `pixnaria`.
 
-## Do not upload secrets
+Do not upload `.env`.
 
-Do not create or upload `.env`.
+## Current fixes
 
-Only upload:
-
-```txt
-.env.example
-```
-
-## GitHub OAuth callback URLs
-
-Local:
-
-```txt
-http://localhost:8000/api/auth/github/callback
-```
-
-Vercel:
-
-```txt
-https://YOUR-VERCEL-DOMAIN.vercel.app/api/auth/github/callback
-```
-
-## Vercel env variables
-
-Add these in Vercel Project Settings → Environment Variables:
-
-```txt
-GITHUB_CLIENT_ID
-GITHUB_CLIENT_SECRET
-GITHUB_CALLBACK_URL
-PUBLIC_BASE_URL
-SESSION_SECRET
-```
-
-## Current real GitHub features
-
-```txt
-Continue with GitHub OAuth
-Signed cookie session
-Pixnaria custom profile save
-Create public GitHub repo from My Projects
-Starter Pixnaria files committed to the repo
-```
+- GitHub account `Snowoo-2z` is treated as the Pixnaria admin/creator.
+- Sign in page is now real GitHub-only, no profile editing there.
+- Profile pages work at `/user/username`.
+- Profile description and custom profile picture are edited on the profile page.
+- Session/profile links point to `/user/your-github-username`.
+- Admin access checks GitHub session, not old local mock data.

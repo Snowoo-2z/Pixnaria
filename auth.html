@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GitHub Login — Pixnaria</title>
+  <title>Sign in — Pixnaria</title>
   <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/responsive.css">
@@ -19,86 +19,33 @@
       <div class="navbar__right">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="projects.html">Projects</a>
-        <button class="lang-button" type="button" data-language-toggle>FR</button>
       </div>
     </div>
   </header>
 
-  <main class="auth-page">
-    <div class="container auth-layout">
-      <section class="auth-brand">
-        <div>
-          <img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria">
-          <h1><span class="gradient-text">Continue with GitHub</span></h1>
-          <p>Pixnaria cloud accounts use GitHub. Projects are stored as public GitHub repositories, while Pixnaria keeps its own profiles, avatars, likes, comments, reports and community features.</p>
-          <div class="auth-feature-list">
-            <div class="auth-feature"><span>GH</span><strong>GitHub account required for cloud projects</strong></div>
-            <div class="auth-feature"><span>↗</span><strong>Projects sync to public GitHub repos</strong></div>
-            <div class="auth-feature"><span>◎</span><strong>Custom Pixnaria profile picture</strong></div>
-            <div class="auth-feature"><span>★</span><strong>Community data stays in Firebase/Supabase</strong></div>
-          </div>
-        </div>
-        <p class="auth-note">This page is currently a frontend mock. Real OAuth will need Supabase, Firebase or a secure backend callback.</p>
+  <main class="auth-page auth-page--clean">
+    <div class="container auth-clean-layout">
+      <section class="auth-clean-hero">
+        <img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria">
+        <h1><span class="gradient-text">Sign in to Pixnaria</span></h1>
+        <p>Use your GitHub account to create public Pixnaria projects, sync repositories and access the editor.</p>
       </section>
 
-      <section class="auth-card">
-        <div class="auth-status" data-auth-status>Connect with GitHub.</div>
-
-        <section class="auth-panel active" data-auth-step="github">
-          <h2>GitHub connection</h2>
-          <p class="auth-hint">Mock the GitHub login now. Later this button will open the real GitHub OAuth authorization screen.</p>
-
-          <div class="auth-form">
-            <button class="button button--primary" type="button" data-github-connect>Continue with GitHub</button>
-            <button class="button button--ghost" type="button" data-login-snowoo>Continue as Snowoo via GitHub</button>
-            <button class="button button--ghost" type="button" data-github-real-note>How this real GitHub OAuth works</button>
-            <p class="auth-hint">This uses the real GitHub OAuth flow through <code>server.js</code>. Configure <code>.env</code> first.</p>
-          </div>
-        </section>
-
-        <section class="auth-panel" data-auth-step="profile">
-          <h2>Complete Pixnaria profile</h2>
-          <p class="auth-hint">GitHub is connected. Now customize the Pixnaria profile. The avatar is Pixnaria-owned, not forced from GitHub.</p>
-
-          <div class="project-author" style="margin:1rem 0">
-            <span class="avatar avatar--creator">GH</span>
-            <span data-github-info><strong>GitHub user</strong><small>Connected GitHub</small></span>
-          </div>
-
-          <div class="auth-form">
-            <label class="field">
-              <span>Pixnaria display name</span>
-              <input data-profile-display placeholder="Snowoo" pattern="[A-Za-z0-9_-]+">
-            </label>
-
-            <label class="field">
-              <span>Bio</span>
-              <input data-profile-bio placeholder="Tell the community who you are">
-            </label>
-
-            <div class="avatar-picker">
-              <div class="avatar-preview" data-avatar-preview>P</div>
-              <label class="field" style="margin:0;flex:1">
-                <span>Custom Pixnaria profile picture</span>
-                <input type="file" accept="image/*" data-avatar-input>
-              </label>
-            </div>
-
-            <button class="button button--primary" type="button" data-save-profile>Save Pixnaria profile</button>
-            <button class="button button--ghost" type="button" data-back-github>Back to GitHub step</button>
-          </div>
-        </section>
-
+      <section class="auth-clean-card">
+        <div class="auth-status" data-auth-status>Checking session…</div>
+        <button class="button button--primary auth-github-button" type="button" data-github-connect>
+          <span>GitHub</span>
+          Continue with GitHub
+        </button>
+        <p class="auth-hint">Your Pixnaria profile picture and description are edited on your profile page.</p>
         <div class="auth-footer-actions">
-          <button class="button button--ghost" type="button" data-reset-auth>Clear mock session</button>
-          <a class="button button--ghost" href="PIXNARIA_GITHUB_AUTH_SETUP.md">Setup guide</a>
+          <button class="button button--ghost" type="button" data-reset-auth>Logout</button>
           <a class="button button--ghost" href="privacy.html">Privacy</a>
         </div>
       </section>
     </div>
   </main>
 
-  <script src="scripts/github-auth-config.js"></script>
   <script src="scripts/mock-data.js"></script>
   <script src="scripts/i18n.js"></script>
   <script src="scripts/navigation.js"></script>

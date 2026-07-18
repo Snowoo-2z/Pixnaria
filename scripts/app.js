@@ -1,10 +1,23 @@
-function createAvatar(user) {
-  return `<span class="avatar avatar--${user.avatarColor}" aria-hidden="true">${user.avatarInitial}</span>`;
+function pxT(key, fallback = key) {
+  return window.PixnariaI18n?.t?.(key) || fallback;
+}
+
+function currentLang() {
+  return window.PixnariaI18n?.current?.() || "en";
+}
+
+function createAvatar(user = {}) {
+  if (user.avatarData) {
+    return `<span class="avatar avatar--${user.avatarColor || "default"}"><img src="${user.avatarData}" alt="${user.displayName || user.username || "Avatar"}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></span>`;
+  }
+  const initial = user.avatarInitial || (user.displayName || user.username || "?").charAt(0).toUpperCase();
+  return `<span class="avatar avatar--${user.avatarColor || "default"}" aria-hidden="true">${initial}</span>`;
 }
 
 function renderUser() {
+  if (!window.PIXNARIA_USER) return;
   document.querySelectorAll("[data-username]").forEach((node) => {
-    node.textContent = PIXNARIA_USER.username;
+    node.textContent = PIXNARIA_USER.displayName || PIXNARIA_USER.username || "Guest";
   });
   document.querySelectorAll("[data-avatar]").forEach((node) => {
     node.innerHTML = createAvatar(PIXNARIA_USER);
@@ -26,7 +39,7 @@ function projectPreview(project) {
 
 function projectCard(project) {
   return `
-    <article class="project-card" tabindex="0">
+    <article class="project-card" tabindex="0" onclick="location.href='project.html'">
       ${projectPreview(project)}
       <div class="project-card__body">
         <div class="project-card__topline">
@@ -47,26 +60,23 @@ function projectCard(project) {
 }
 
 function renderProjects() {
+  if (!window.PIXNARIA_PROJECTS) return;
   const trending = document.querySelector("[data-trending-projects]");
   const featured = document.querySelector("[data-featured-project]");
 
-  if (trending) {
-    trending.innerHTML = PIXNARIA_PROJECTS.map(projectCard).join("");
-  }
+  if (trending) trending.innerHTML = PIXNARIA_PROJECTS.map(projectCard).join("");
 
   if (featured) {
     const main = PIXNARIA_PROJECTS.find((project) => project.featured) || PIXNARIA_PROJECTS[0];
     featured.innerHTML = `
-      <div class="featured-card__visual">
-        ${projectPreview(main)}
-      </div>
+      <div class="featured-card__visual">${projectPreview(main)}</div>
       <div class="featured-card__content">
-        <span class="section-kicker" data-i18n="featured">${PixnariaI18n.t("featured")}</span>
+        <span class="section-kicker">Featured Project</span>
         <h3>${main.title}</h3>
-        <p>${main.description} Pixnaria highlights projects selected for creativity, quality, or community value.</p>
+        <p>${main.description}</p>
         <div class="featured-card__actions">
-          <a class="button button--primary" href="editor.html" data-i18n="openEditor">${PixnariaI18n.t("openEditor")}</a>
-          <a class="button button--ghost" href="project.html" data-i18n="viewProject">${PixnariaI18n.t("viewProject")}</a>
+          <a class="button button--primary" href="editor.html">Open editor</a>
+          <a class="button button--ghost" href="project.html">View project</a>
         </div>
       </div>
     `;
@@ -74,32 +84,23 @@ function renderProjects() {
 }
 
 function newsLabel(category) {
-  const labels = {
-    announcement: "Announcement",
-    update: "Update",
-    contest: "Contest",
-    community: "Community",
-    maintenance: "Maintenance",
-    featured: "Featured"
-  };
+  const labels = { announcement: "Announcement", update: "Update", contest: "Contest", community: "Community", maintenance: "Maintenance", featured: "Featured" };
   return labels[category] || category;
 }
 
 function renderNews() {
+  if (!window.PixnariaNewsAdmin) return;
   const list = document.querySelector("[data-news-list]");
   const adminList = document.querySelector("[data-admin-news-list]");
-  const lang = PixnariaI18n.current();
-  const news = PixnariaNewsAdmin.getNews()
-    .filter((item) => item.published)
-    .sort((a, b) => Number(b.pinned) - Number(a.pinned));
+  if (!list && !adminList) return;
+
+  const lang = currentLang();
+  const news = PixnariaNewsAdmin.getNews().filter((item) => item.published).sort((a, b) => Number(b.pinned) - Number(a.pinned));
 
   if (list) {
     list.innerHTML = news.map((item) => `
       <article class="news-card ${item.important ? "news-card--important" : ""}">
-        <div class="news-card__meta">
-          <span class="pill ${item.pinned ? "pill--featured" : ""}">${item.pinned ? "Pinned" : newsLabel(item.category)}</span>
-          <time datetime="${item.date}">${item.date}</time>
-        </div>
+        <div class="news-card__meta"><span class="pill ${item.pinned ? "pill--featured" : ""}">${item.pinned ? "Pinned" : newsLabel(item.category)}</span><time datetime="${item.date}">${item.date}</time></div>
         <h3>${item.title[lang] || item.title.en}</h3>
         <p>${item.content[lang] || item.content.en}</p>
       </article>
@@ -109,50 +110,40 @@ function renderNews() {
   if (adminList) {
     const allNews = PixnariaNewsAdmin.getNews();
     adminList.innerHTML = allNews.map((item) => `
-      <li>
-        <span>
-          <strong>${item.title[lang] || item.title.en}</strong>
-          <small>${item.category} · ${item.date}</small>
-        </span>
-        <button class="icon-button danger" type="button" data-delete-news="${item.id}" aria-label="Delete news">×</button>
-      </li>
+      <li><span><strong>${item.title[lang] || item.title.en}</strong><small>${item.category} · ${item.date}</small></span><button class="icon-button danger" type="button" data-delete-news="${item.id}" aria-label="Delete news">×</button></li>
     `).join("");
-
-    adminList.querySelectorAll("[data-delete-news]").forEach((button) => {
-      button.addEventListener("click", () => PixnariaNewsAdmin.removeNews(button.dataset.deleteNews));
-    });
+    adminList.querySelectorAll("[data-delete-news]").forEach((button) => button.addEventListener("click", () => PixnariaNewsAdmin.removeNews(button.dataset.deleteNews)));
   }
 }
 
 function renderTeamPreview() {
+  if (!window.PIXNARIA_TEAM) return;
   const team = document.querySelector("[data-team-preview]");
   if (!team) return;
   team.innerHTML = PIXNARIA_TEAM.map((member) => `
     <div class="team-chip ${member.top ? "team-chip--creator" : ""}">
       <span class="avatar ${member.top ? "avatar--creator" : ""}">${member.username.charAt(0)}</span>
-      <span>
-        <strong>${member.username}</strong>
-        <small>${member.role} · Joined ${member.joinedAt}</small>
-      </span>
+      <span><strong>${member.username}</strong><small>${member.role} · Joined ${member.joinedAt}</small></span>
     </div>
   `).join("");
 }
 
 function initApp() {
   renderUser();
-  PixnariaI18n.apply();
-  initNavigation();
-  PixnariaNewsAdmin.init();
+  window.PixnariaI18n?.apply?.();
+  if (typeof initNavigation === "function") initNavigation();
+  window.PixnariaNewsAdmin?.init?.();
   renderProjects();
   renderNews();
   renderTeamPreview();
 
   document.addEventListener("pixnaria:lang", () => {
-    PixnariaI18n.apply();
+    window.PixnariaI18n?.apply?.();
     renderProjects();
     renderNews();
   });
   document.addEventListener("pixnaria:news-updated", renderNews);
+  document.addEventListener("pixnaria:session", () => renderUser());
 }
 
 document.addEventListener("DOMContentLoaded", initApp);

@@ -972,3 +972,110 @@ dialog::backdrop {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Pixnaria clean live UI pass */
+.kicker::before,
+.section-kicker::before {
+  display: none;
+}
+
+.kicker,
+.section-kicker {
+  padding-inline: .85rem;
+  background: rgba(168,85,247,.10);
+}
+
+.home-welcome {
+  padding: clamp(2.6rem, 7vw, 6rem) 0 2.4rem;
+}
+
+.home-welcome__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
+  gap: clamp(1.5rem, 5vw, 3.4rem);
+  align-items: center;
+}
+
+.home-welcome h1,
+.home-dashboard h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.6rem, 7vw, 5.7rem);
+  line-height: .94;
+  letter-spacing: -.07em;
+}
+
+.home-welcome p,
+.home-dashboard p {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: clamp(1.03rem, 2vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.home-dashboard {
+  padding: 2.2rem 0 1.2rem;
+}
+
+.dashboard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.1rem, 3vw, 2rem);
+  background: linear-gradient(135deg, rgba(24,16,38,.78), rgba(11,7,18,.72));
+  box-shadow: var(--shadow);
+}
+
+.compact-section {
+  padding: 1.8rem 0;
+}
+
+.clean-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.clean-section-head h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  letter-spacing: -.05em;
+}
+
+.clean-section-head a {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.clean-section-head a:hover {
+  color: var(--text);
+}
+
+.profile-menu__button {
+  width: 100%;
+  display: block;
+  padding: .75rem .8rem;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  font-weight: 700;
+}
+
+.profile-menu__button:hover {
+  background: rgba(168,85,247,.12);
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .home-welcome__grid,
+  .dashboard-head {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+}

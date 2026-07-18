@@ -7,6 +7,6 @@ module.exports = async function handler(req, res) {
   return sendJson(res, 200, {
     authenticated: true,
     github: session.github,
-    pixnariaProfile: null
+    pixnariaProfile: session.pixnariaProfile || null
   });
 };

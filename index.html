@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pixnaria — Imagine. Create. Share. Coding platform with Python, nodes and a custom 2D engine.">
-  <title>Pixnaria — Imagine. Create. Share.</title>
+  <meta name="description" content="Pixnaria — coding, projects and an open creative community.">
+  <title>Pixnaria</title>
   <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
   <link rel="icon" type="image/svg+xml" href="assets/logos/pixnaria_favicon.svg">
   <link rel="stylesheet" href="styles/main.css">
@@ -16,218 +16,95 @@
   <header class="site-header">
     <div class="container navbar" aria-label="Main navigation">
       <div class="navbar__left">
-        <a class="logo-link" href="index.html" aria-label="Pixnaria home">
-          <img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria">
-        </a>
+        <a class="logo-link" href="index.html" aria-label="Pixnaria home"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
         <nav class="navbar__links" aria-label="Primary">
-          <a class="nav-link nav-link--active" href="explore.html" data-i18n="explorer">Explorer</a>
+          <a class="nav-link" href="explore.html">Explorer</a>
         </nav>
       </div>
-
       <div class="navbar__right">
-        <a class="nav-link" href="messages.html" data-i18n="messages">Messages</a>
-        <a class="nav-link" href="projects.html" data-i18n="projects">Projects</a>
+        <a class="nav-link" href="messages.html">💬 Messages</a>
+        <a class="nav-link" href="projects.html">▣ Projects</a>
+        <a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a>
         <button class="lang-button" type="button" data-language-toggle aria-label="Toggle language">FR</button>
-
-        <div class="profile-wrap">
-          <button class="profile-button" type="button" data-profile-button aria-haspopup="true" aria-expanded="false">
-            <span data-username>Snowoo</span>
-            <span data-avatar></span>
-          </button>
+        <div class="profile-wrap" data-requires-auth hidden>
+          <button class="profile-button" type="button" data-profile-button aria-haspopup="true" aria-expanded="false"><span data-username>Guest</span><span data-avatar></span></button>
           <div class="profile-menu" data-profile-menu>
-            <div class="profile-menu__head">
-              <span data-avatar></span>
-              <span>
-                <strong data-username>Snowoo</strong>
-                <small>Creator · Admin</small>
-              </span>
-            </div>
-            <a href="profile.html" data-i18n="profile">Profile</a>
-            <a href="projects.html" data-i18n="projects">Projects</a>
-            <a href="messages.html" data-i18n="messages">Messages</a>
-            <a href="settings.html" data-i18n="settings">Settings</a>
-            <a href="auth.html">Login / Register</a>
+            <div class="profile-menu__head"><span data-avatar></span><span><strong data-username>Guest</strong><small>GitHub connected</small></span></div>
+            <a href="profile.html">Profile</a>
+            <a href="projects.html">Projects</a>
+            <a href="messages.html">Messages</a>
+            <a href="settings.html">Settings</a>
+            <button class="profile-menu__button" type="button" data-logout>Logout</button>
           </div>
         </div>
-
-        <button class="icon-button menu-button" type="button" data-menu-button data-i18n-aria="mobileMenu" aria-label="Menu" aria-expanded="false">☰</button>
+        <button class="icon-button menu-button" type="button" data-menu-button aria-label="Menu" aria-expanded="false">☰</button>
       </div>
     </div>
-
     <div class="container mobile-menu" data-mobile-menu>
-      <a href="explore.html" data-i18n="explorer">Explorer</a>
-      <a href="projects.html" data-i18n="projects">Projects</a>
-      <a href="messages.html" data-i18n="messages">Messages</a>
-      <a href="profile.html" data-i18n="profile">Profile</a>
-      <a href="our-team.html" data-i18n="ourTeam">Our Team</a>
-      <a href="contact.html" data-i18n="contactUs">Contact Us</a>
-      <button type="button" data-language-toggle data-i18n="language">FR</button>
+      <a href="explore.html">Explorer</a>
+      <a href="projects.html">Projects</a>
+      <a href="messages.html">Messages</a>
+      <a href="profile.html">Profile</a>
+      <a href="auth.html" data-auth-link>Continue with GitHub</a>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <span class="kicker" data-i18n="heroBadge">Open source coding platform</span>
-          <h1><span class="gradient-text" data-i18n="heroTitle">Imagine. Create. Share.</span></h1>
-          <p data-i18n="heroText">Create games and animations with Python, nodes, and a custom 2D engine.</p>
-
+    <section class="home-welcome" data-guest-only>
+      <div class="container home-welcome__grid">
+        <div>
+          <h1><span class="gradient-text">Code games with Python.</span></h1>
+          <p>Build open 2D projects with nodes, a custom engine and GitHub repositories.</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="editor.html" data-i18n="startCreating">Start Creating</a>
-            <a class="button button--ghost" href="explore.html" data-i18n="exploreProjects">Explore Projects</a>
-          </div>
-
-          <div class="hero__meta" aria-label="Pixnaria features">
-            <span><strong>Python</strong> only</span>
-            <span><strong>2D</strong> custom engine</span>
-            <span><strong>Open</strong> source</span>
+            <a class="button button--primary" href="auth.html">Continue with GitHub</a>
+            <a class="button button--ghost" href="explore.html">Explore projects</a>
           </div>
         </div>
-
-        <aside class="editor-card" aria-label="Pixnaria editor preview">
+        <aside class="editor-card" aria-label="Pixnaria preview">
           <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
           <div class="editor-card__grid">
-            <div class="mini-panel">
-              <div class="mini-panel__title"><span data-i18n="sceneTree">Scene Tree</span><span>+</span></div>
-              <div class="node-tree" aria-label="Example node tree">
-                <div class="node node--active"><span class="node__icon"></span>Scene</div>
-                <div class="node node--child"><span class="node__icon"></span>Player</div>
-                <div class="node node--child"><span class="node__icon"></span>Sprite</div>
-                <div class="node node--child"><span class="node__icon"></span>Collider</div>
-                <div class="node node--child"><span class="node__icon"></span>Player.py</div>
-                <div class="node"><span class="node__icon"></span>Camera2D</div>
-              </div>
-            </div>
-
-            <div class="mini-panel code-panel">
-              <div class="mini-panel__title"><span data-i18n="codePreview">Python Script</span><span>●</span></div>
-<pre><code><span class="token">class</span> Player(Node2D):
-    speed = export(<span class="number">250</span>)
-
-    <span class="token">def</span> update(delta):
-        <span class="token">if</span> input.is_key_down(<span class="string">"right"</span>):
-            self.x += speed * delta</code></pre>
-            </div>
+            <div class="mini-panel"><div class="mini-panel__title"><span>Scene</span><span>+</span></div><div class="node-tree"><div class="node node--active"><span class="node__icon"></span>Scene</div><div class="node node--child"><span class="node__icon"></span>Player</div><div class="node node--child"><span class="node__icon"></span>Player.py</div><div class="node"><span class="node__icon"></span>Camera2D</div></div></div>
+            <div class="mini-panel code-panel"><div class="mini-panel__title"><span>Python</span><span>●</span></div><pre><code><span class="token">def</span> update(delta):
+    <span class="token">if</span> input.is_action_pressed(<span class="string">"right"</span>):
+        self.x += speed * delta</code></pre></div>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="trending">
+    <section class="home-dashboard" data-requires-auth hidden>
       <div class="container">
-        <div class="section__head">
-          <div class="section__title">
-            <span class="section-kicker" data-i18n="trending">Trending Projects</span>
-            <h2>Community creations</h2>
-            <p>Discover projects made by creators using Python, nodes and Pixnaria’s future 2D engine.</p>
-          </div>
-          <a class="button button--ghost" href="explore.html" data-i18n="exploreProjects">Explore Projects</a>
+        <div class="dashboard-head">
+          <div><h1>Welcome back, <span data-username>creator</span>.</h1><p>Pick up a project, explore the community, or open the editor.</p></div>
+          <div class="hero__actions"><a class="button button--primary" href="projects.html">My projects</a><a class="button button--ghost" href="editor.html">Open editor</a></div>
         </div>
+      </div>
+    </section>
+
+    <section class="section compact-section" id="featured">
+      <div class="container"><div class="featured-card" data-featured-project></div></div>
+    </section>
+
+    <section class="section compact-section" id="trending">
+      <div class="container">
+        <div class="clean-section-head"><h2>Trending projects</h2><a href="explore.html">See all</a></div>
         <div class="project-grid" data-trending-projects></div>
       </div>
     </section>
 
-    <section class="section" id="featured">
-      <div class="container">
-        <div class="featured-card" data-featured-project></div>
-      </div>
-    </section>
-
-    <section class="section" id="news">
-      <div class="container">
-        <div class="section__head">
-          <div class="section__title">
-            <span class="section-kicker" data-i18n="news">News</span>
-            <h2>Pixnaria updates</h2>
-            <p>Announcements, updates and future contests. Snowoo gets a complete management panel once connected.</p>
-          </div>
-        </div>
-
-        <div class="news-layout">
-          <div class="news-list" data-news-list></div>
-
-          <aside class="admin-card" aria-label="Snowoo news management preview">
-            <span class="pill pill--featured">Snowoo Admin</span>
-            <h3 data-i18n="adminPanel">News Manager</h3>
-            <p>This preview simulates the future connected dashboard: create, pin, mark important, publish and manage news.</p>
-            <button class="button button--primary" type="button" data-open-news-admin data-i18n="manageNews">Manage News</button>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="community">
-      <div class="container community-grid">
-        <article class="community-card">
-          <span class="section-kicker" data-i18n="studios">Studios & Community</span>
-          <h3>Built like a creative hub</h3>
-          <p data-i18n="studiosText">Create, publish, discover, favorite, and build a creative open source community.</p>
-        </article>
-
-        <article class="community-card">
-          <span class="section-kicker" data-i18n="ourTeam">Our Team</span>
-          <h3>Creator & moderators</h3>
-          <p>Snowoo appears first, followed by moderators and their join dates.</p>
-          <div class="team-preview" data-team-preview></div>
-        </article>
+    <section class="section compact-section" id="news">
+      <div class="container news-layout">
+        <div><div class="clean-section-head"><h2>News</h2></div><div class="news-list" data-news-list></div></div>
+        <aside class="admin-card" data-requires-auth hidden><span class="pill pill--featured">Admin</span><h3>News manager</h3><p>Manage announcements from the Pixnaria dashboard.</p><button class="button button--primary" type="button" data-open-news-admin>Manage</button></aside>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria">
-        <p data-i18n="footerText">Coding, nodes, Python and community — built for creators.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="our-team.html" data-i18n="ourTeam">Our Team</a>
-        <a href="contact.html" data-i18n="contactUs">Contact Us</a>
-        <a href="privacy.html" data-i18n="privacy">Privacy</a>
-        <a href="terms.html" data-i18n="terms">Terms</a>
-        <a href="#" data-i18n="github">GitHub</a>
-      </nav>
-    </div>
-  </footer>
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Open coding platform powered by GitHub projects.</p></div><nav class="footer-links"><a href="our-team.html">Our Team</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div></footer>
 
   <dialog class="news-dialog" data-news-dialog>
-    <div class="dialog-head">
-      <h2 data-i18n="adminPanel">News Manager</h2>
-      <button class="icon-button" type="button" data-close-news-admin aria-label="Close">×</button>
-    </div>
-    <div class="dialog-body">
-      <form class="news-form" data-news-form>
-        <label class="field">
-          <span data-i18n="newsTitle">Title</span>
-          <input name="title" maxlength="80" required placeholder="Pixnaria update">
-        </label>
-        <label class="field">
-          <span data-i18n="newsContent">Content</span>
-          <textarea name="content" rows="4" maxlength="240" required placeholder="Write a short announcement..."></textarea>
-        </label>
-        <label class="field">
-          <span data-i18n="newsCategory">Category</span>
-          <select name="category">
-            <option value="announcement">Announcement</option>
-            <option value="update">Update</option>
-            <option value="contest">Contest</option>
-            <option value="community">Community</option>
-            <option value="maintenance">Maintenance</option>
-          </select>
-        </label>
-        <div class="check-row">
-          <label><input type="checkbox" name="pinned"> <span data-i18n="newsPinned">Pinned</span></label>
-          <label><input type="checkbox" name="important"> <span data-i18n="newsImportant">Important</span></label>
-        </div>
-        <div class="form-actions">
-          <button class="button button--primary" type="submit" data-i18n="addNews">Add news</button>
-          <button class="button button--ghost" type="button" data-reset-news data-i18n="resetNews">Reset demo news</button>
-          <button class="button button--ghost" type="button" data-close-news-admin data-i18n="close">Close</button>
-        </div>
-      </form>
-      <ul class="admin-news-list" data-admin-news-list></ul>
-    </div>
+    <div class="dialog-head"><h2>News Manager</h2><button class="icon-button" type="button" data-close-news-admin aria-label="Close">×</button></div>
+    <div class="dialog-body"><form class="news-form" data-news-form><label class="field"><span>Title</span><input name="title" maxlength="80" required></label><label class="field"><span>Content</span><textarea name="content" rows="4" maxlength="240" required></textarea></label><label class="field"><span>Category</span><select name="category"><option value="announcement">Announcement</option><option value="update">Update</option><option value="contest">Contest</option></select></label><div class="check-row"><label><input type="checkbox" name="pinned"> Pinned</label><label><input type="checkbox" name="important"> Important</label></div><div class="form-actions"><button class="button button--primary" type="submit">Add</button><button class="button button--ghost" type="button" data-close-news-admin>Close</button></div></form><ul class="admin-news-list" data-admin-news-list></ul></div>
   </dialog>
 
   <script src="scripts/mock-data.js"></script>

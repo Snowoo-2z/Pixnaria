@@ -7,16 +7,16 @@ const PixnariaAdmin = (() => {
       { id: "rep_002", project: "Pixel Forest", reporter: "NariaMaker", target: "ForestFan", reason: "Spam comments", status: "open", date: "Today" }
     ],
     users: [
-      { id: "user_snowoo", username: "Snowoo", email: "snowoo@example.hidden", role: "creator", status: "active", joinedAt: "2026-07-13", ban: null },
+      { id: "user_snowoo", username: "Snowoo-2z", email: "snowoo@example.hidden", role: "creator", status: "active", joinedAt: "2026-07-13", ban: null },
       { id: "user_luna", username: "LunaDev", email: "luna@example.hidden", role: "user", status: "active", joinedAt: "2026-07-13", ban: null },
       { id: "user_orbit", username: "OrbitKid", email: "orbit@example.hidden", role: "user", status: "active", joinedAt: "2026-07-13", ban: null },
       { id: "user_forest", username: "ForestFan", email: "forest@example.hidden", role: "user", status: "active", joinedAt: "2026-07-13", ban: null }
     ],
     moderators: [
-      { username: "ModeratorSoon", joinedAt: "Soon", addedBy: "Snowoo" }
+      { username: "ModeratorSoon", joinedAt: "Soon", addedBy: "Snowoo-2z" }
     ],
     featured: [
-      { id: "neon-platformer", title: "Neon Platformer", author: "Snowoo", order: 1 },
+      { id: "neon-platformer", title: "Neon Platformer", author: "Snowoo-2z", order: 1 },
       { id: "pixel-forest", title: "Pixel Forest", author: "LunaDev", order: 2 }
     ],
     logs: ["> admin dashboard ready"]
@@ -46,8 +46,24 @@ const PixnariaAdmin = (() => {
     renderLog();
   }
 
-  function isSnowoo() {
-    return typeof PIXNARIA_USER !== "undefined" && PIXNARIA_USER.username === "Snowoo";
+  function isSnowooName(name) {
+    return ["snowoo-2z", "snowoo"].includes(String(name || "").toLowerCase());
+  }
+
+  async function isSnowoo() {
+    try {
+      const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+      if (res.ok) {
+        const data = await res.json();
+        if (isSnowooName(data.github?.login || data.pixnariaProfile?.githubUsername)) return true;
+      }
+    } catch {}
+    try {
+      const user = JSON.parse(localStorage.getItem('pixnaria_mock_user') || 'null');
+      return isSnowooName(user?.githubUsername || user?.username);
+    } catch {
+      return false;
+    }
   }
 
   function openTab(name) {
@@ -103,7 +119,7 @@ const PixnariaAdmin = (() => {
         const user = state.users.find((item) => item.username === button.dataset.reportBan);
         if (user) {
           user.status = "banned";
-          user.ban = { type: "temporary", reason: "Report action", until: "7 days", by: "Snowoo" };
+          user.ban = { type: "temporary", reason: "Report action", until: "7 days", by: "Snowoo-2z" };
           save(); render(); log(`temporary ban applied to ${user.username} from report`);
         }
       });
@@ -117,7 +133,7 @@ const PixnariaAdmin = (() => {
       <li class="admin-list-item">
         <span>
           <strong>${user.username}</strong>
-          <small>Email visible to Snowoo only: <span class="user-email">${user.email}</span></small>
+          <small>Email visible to Snowoo-2z only: <span class="user-email">${user.email}</span></small>
           <small>Role: ${user.role} · Joined: ${user.joinedAt}</small>
           ${user.ban ? `<small>Ban: ${user.ban.type} · Reason: ${user.ban.reason} · Until: ${user.ban.until || "Permanent"}</small>` : ""}
         </span>
@@ -139,12 +155,12 @@ const PixnariaAdmin = (() => {
     const reason = $("[data-ban-reason]").value.trim() || "No reason provided";
     const duration = $("[data-ban-duration]").value.trim() || "7 days";
     const user = state.users.find((item) => item.id === id);
-    if (!user || user.username === "Snowoo") {
-      log("cannot ban Snowoo");
+    if (!user || user.username === "Snowoo-2z") {
+      log("cannot ban Snowoo-2z");
       return;
     }
     user.status = "banned";
-    user.ban = { type, reason, until: type === "temporary" ? duration : null, by: "Snowoo" };
+    user.ban = { type, reason, until: type === "temporary" ? duration : null, by: "Snowoo-2z" };
     save(); render(); log(`${type} ban applied to ${user.username}: ${reason}`);
   }
 
@@ -217,7 +233,7 @@ const PixnariaAdmin = (() => {
         return;
       }
       if (!state.moderators.some((mod) => mod.username === username)) {
-        state.moderators.push({ username, joinedAt: "Mock date", addedBy: "Snowoo" });
+        state.moderators.push({ username, joinedAt: "Mock date", addedBy: "Snowoo-2z" });
       }
       let user = state.users.find((item) => item.username === username);
       if (!user) {
@@ -244,10 +260,10 @@ const PixnariaAdmin = (() => {
     });
   }
 
-  function init() {
+  async function init() {
     if (!$('[data-admin-page]')) return;
-    if (!isSnowoo()) {
-      document.body.innerHTML = `<main class="page-hero"><div class="container page-hero__card"><h1>Access denied</h1><p>This mock admin panel is only available to Snowoo.</p><a class="button button--primary" href="index.html">Back home</a></div></main>`;
+    if (!(await isSnowoo())) {
+      document.body.innerHTML = `<main class="page-hero"><div class="container page-hero__card"><h1>Access denied</h1><p>This admin panel is only available to Snowoo-2z.</p><a class="button button--primary" href="index.html">Back home</a></div></main>`;
       return;
     }
     document.querySelectorAll("[data-admin-tab]").forEach((button) => {

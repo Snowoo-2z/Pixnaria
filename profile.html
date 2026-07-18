@@ -1,8 +1,56 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Snowoo — Pixnaria</title><link rel="icon" href="assets/logos/pixnaria_favicon.ico"><link rel="stylesheet" href="styles/main.css"><link rel="stylesheet" href="styles/responsive.css"><link rel="stylesheet" href="styles/editor.css"></head>
-<body>
-<header class="site-header"><div class="container navbar"><div class="navbar__left"><a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a><nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav></div><div class="navbar__right"><a class="nav-link" href="messages.html">Messages</a><a class="nav-link" href="projects.html">Projects</a><button class="lang-button" type="button" data-language-toggle>FR</button><div class="profile-wrap"><button class="profile-button" type="button" data-profile-button><span data-username>Snowoo</span><span data-avatar></span></button><div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a></div></div><button class="icon-button menu-button" type="button" data-menu-button>☰</button></div></div><div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><a href="our-team.html">Our Team</a></div></header>
-<main><section class="page-hero"><div class="container profile-layout"><aside class="page-card profile-panel"><span class="avatar avatar--creator profile-avatar">S</span><h1>Snowoo</h1><p>Creator of Pixnaria.</p><div class="badge-row"><span class="pill pill--featured">Creator</span><span class="pill">Admin</span></div><p><strong>Joined:</strong> 2026-07-13</p><p class="muted">Email is private and only visible in secure administration tools.</p></aside><div class="page-card"><span class="section-kicker">Public profile</span><h2>Projects by Snowoo</h2><p>Public projects appear here and can be shared by link. Private projects stay hidden.</p><div class="project-grid" data-trending-projects></div></div></div></section></main>
-<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Imagine. Create. Share.</p></div><nav class="footer-links"><a href="our-team.html">Our Team</a><a href="contact.html">Contact Us</a><a href="privacy.html">Privacy</a></nav></div></footer>
-<script src="scripts/mock-data.js"></script><script src="scripts/i18n.js"></script><script src="scripts/navigation.js"></script><script src="scripts/news-admin.js"></script><script src="scripts/session.js"></script>
-  <script src="scripts/app.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/profile.css">
+</head>
+<body data-user-profile-page>
+  <header class="site-header">
+    <div class="container navbar">
+      <div class="navbar__left"><a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a><nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav></div>
+      <div class="navbar__right"><a class="nav-link" href="messages.html">💬 Messages</a><a class="nav-link" href="projects.html">▣ Projects</a><a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a><button class="icon-button menu-button" type="button" data-menu-button>☰</button></div>
+    </div>
+    <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a></div>
+  </header>
+
+  <main class="user-profile-page">
+    <div class="container">
+      <section class="profile-cover">
+        <div class="profile-top">
+          <div data-profile-avatar></div>
+          <div class="profile-name">
+            <h1 data-profile-name>Profile</h1>
+            <p data-profile-username>@user</p>
+            <div class="badge-row" data-profile-badges></div>
+          </div>
+          <div class="hero__actions"><a class="button button--primary" href="projects.html">Projects</a><a class="button button--ghost" data-profile-github href="#" target="_blank" rel="noreferrer">GitHub</a></div>
+        </div>
+        <div class="profile-stats-row">
+          <div class="profile-stat"><strong>3</strong><small>Projects</small></div>
+          <div class="profile-stat"><strong>128</strong><small>Likes</small></div>
+          <div class="profile-stat"><strong>42</strong><small>Favorites</small></div>
+          <div class="profile-stat"><strong>2026</strong><small>Joined</small></div>
+        </div>
+      </section>
+
+      <div class="profile-content-grid">
+        <section class="profile-box"><h2>Shared projects</h2><div class="profile-project-strip" data-profile-projects></div></section>
+        <aside class="profile-box"><h2>Description</h2><p class="profile-about" data-profile-bio></p><div data-profile-edit-panel hidden style="margin-top:1rem"><h2>Edit profile</h2><label class="field compact-field"><span>Display name</span><input data-edit-display></label><label class="field compact-field"><span>Description</span><textarea data-edit-bio rows="4" style="width:100%;resize:vertical"></textarea></label><div class="avatar-picker" style="margin:.7rem 0"><div data-edit-avatar-preview></div><label class="field" style="margin:0;flex:1"><span>Custom profile picture</span><input type="file" accept="image/*" data-edit-avatar></label></div><button class="button button--primary" type="button" data-save-profile-edit>Save profile</button></div><h2 style="margin-top:1.2rem">Activity</h2><ul class="activity-list"><li>Published a Pixnaria project</li><li>Connected GitHub</li><li>Joined the community</li></ul></aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Profile pages are available at /user/username.</p></div><nav class="footer-links"><a href="explore.html">Explorer</a><a href="privacy.html">Privacy</a></nav></div></footer>
+
+  <script src="scripts/mock-data.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/session.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/profile.js"></script>
+</body>
+</html>

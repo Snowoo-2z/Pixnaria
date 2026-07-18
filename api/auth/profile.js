@@ -12,7 +12,7 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { error: 'Display name can only contain letters, numbers, _ and -' });
   }
 
-  const isSnowoo = session.github.login.toLowerCase() === 'snowoo';
+  const isSnowoo = ['snowoo-2z', 'snowoo'].includes(session.github.login.toLowerCase());
   const user = {
     id: isSnowoo ? 'user_snowoo' : `pix_${session.github.id}`,
     username: session.github.login,

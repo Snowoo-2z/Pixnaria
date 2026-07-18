@@ -5,11 +5,11 @@ const PixnariaProjectPage = (() => {
   const defaultProject = {
     id: "neon-platformer",
     title: "Neon Platformer",
-    author: "Snowoo",
+    author: "Snowoo-2z",
     visibility: "Public",
     description: "A neon 2D platformer prototype made with Pixnaria nodes, Python scripts, a custom 2D engine mock, collisions and touch controls.\n\nThis page shows how a public project could look when opened from Explorer or a creator profile.",
     credits: [
-      { name: "Snowoo", role: "Creator / Game design" },
+      { name: "Snowoo-2z", role: "Creator / Game design" },
       { name: "Pixnaria", role: "Engine concept" },
       { name: "Community", role: "Future feedback" }
     ],
@@ -172,7 +172,7 @@ const PixnariaProjectPage = (() => {
     $("[data-inside]")?.addEventListener("click", () => location.href = "editor.html");
     $("[data-like]")?.addEventListener("click", () => { project.stats.likes += 1; saveProject(); renderProject(); });
     $("[data-favorite]")?.addEventListener("click", () => { project.stats.favorites += 1; saveProject(); renderProject(); });
-    $("[data-report]")?.addEventListener("click", () => alert("Mock report sent to Snowoo."));
+    $("[data-report]")?.addEventListener("click", () => alert("Mock report sent to Snowoo-2z."));
 
     $("[data-save-description]")?.addEventListener("click", () => {
       project.description = $("[data-edit-description]").value.trim() || project.description;
