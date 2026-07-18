@@ -1,5 +1,67 @@
 const { decodeSession, parseCookies, readBody, sendJson } = require('../_utils');
 
+const SUPABASE_URL = process.env.SUPABASE_URL || '';
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+async function supabase(path, options = {}) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return null;
+  const response = await fetch(`${SUPABASE_URL}/rest/v1${path}`, {
+    ...options,
+    headers: {
+      apikey: SUPABASE_SERVICE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+      'Content-Type': 'application/json',
+      ...(options.headers || {})
+    }
+  });
+  const text = await response.text();
+  const data = text ? JSON.parse(text) : null;
+  if (!response.ok) throw new Error(data?.message || `Supabase error ${response.status}`);
+  return data;
+}
+
+async function ensureSupabaseProfile(session) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !session?.github) return null;
+  const githubId = String(session.github.id);
+  let rows = await supabase(`/profiles?github_id=eq.${encodeURIComponent(githubId)}&select=*`);
+  if (rows?.[0]) return rows[0];
+  const isAdmin = ['snowoo-2z', 'snowoo'].includes(String(session.github.login).toLowerCase());
+  rows = await supabase('/profiles?select=*', {
+    method: 'POST',
+    headers: { Prefer: 'return=representation' },
+    body: JSON.stringify({
+      github_id: githubId,
+      github_username: session.github.login,
+      display_name: session.github.login,
+      bio: isAdmin ? 'Creator of Pixnaria' : '',
+      role: isAdmin ? 'creator' : 'user',
+      badges: isAdmin ? ['Creator', 'Admin'] : []
+    })
+  });
+  return rows?.[0] || null;
+}
+
+async function indexProjectInSupabase(session, repo, title, description) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
+  const profile = await ensureSupabaseProfile(session);
+  const existing = await supabase(`/projects?github_owner=eq.${encodeURIComponent(session.github.login)}&github_repo=eq.${encodeURIComponent(repo.name)}&select=*`);
+  const payload = {
+    owner_id: profile?.id || null,
+    github_owner: session.github.login,
+    github_repo: repo.name,
+    title,
+    description,
+    visibility: 'public',
+    updated_at: new Date().toISOString()
+  };
+  if (existing?.[0]) {
+    await supabase(`/projects?id=eq.${existing[0].id}`, { method: 'PATCH', body: JSON.stringify(payload) });
+  } else {
+    await supabase('/projects', { method: 'POST', body: JSON.stringify(payload) });
+  }
+}
+
+
 function githubHeaders(token) {
   return {
     Accept: 'application/vnd.github+json',
@@ -76,6 +138,7 @@ module.exports = async function handler(req, res) {
       await putFile(session.githubToken, session.github.login, repo.name, 'pixnaria.scene.json', files.scene, 'Add Pixnaria scene');
       await putFile(session.githubToken, session.github.login, repo.name, 'pixnaria.settings.json', files.settings, 'Add Pixnaria settings');
       await putFile(session.githubToken, session.github.login, repo.name, 'README.md', files.readme, 'Update README for Pixnaria');
+      await indexProjectInSupabase(session, repo, title, description);
 
       return sendJson(res, 200, { repo: { name: repo.name, full_name: repo.full_name, html_url: repo.html_url, description: repo.description } });
     }

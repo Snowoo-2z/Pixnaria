@@ -13,6 +13,8 @@ const PixnariaExplore = (() => {
     { name: "Pixnaria Starters", members: 51, projects: 20, icon: "P" }
   ];
 
+  let realProjects = null;
+
   let activeSort = "trending";
   let activeFilter = "all";
   let query = "";
@@ -20,7 +22,7 @@ const PixnariaExplore = (() => {
   const $ = (selector) => document.querySelector(selector);
 
   function allProjects() {
-    return [...PIXNARIA_PROJECTS, ...extraProjects];
+    return realProjects && realProjects.length ? realProjects : [...PIXNARIA_PROJECTS, ...extraProjects];
   }
 
   function score(project) {
@@ -56,7 +58,7 @@ const PixnariaExplore = (() => {
 
   function projectCard(project) {
     return `
-      <article class="project-card" tabindex="0" onclick="location.href='project.html'">
+      <article class="project-card" tabindex="0" onclick="location.href='project.html${project.githubRepo ? `?repo=${encodeURIComponent(project.githubRepo)}` : ``}'">
         ${typeof projectPreview === "function" ? projectPreview(project) : ""}
         <div class="project-card__body">
           <div class="project-card__topline">
@@ -103,6 +105,15 @@ const PixnariaExplore = (() => {
     `).join("");
   }
 
+  async function loadRealProjects() {
+    try {
+      const response = await fetch('/api/supabase/explore', { credentials: 'same-origin' });
+      if (!response.ok) return;
+      const data = await response.json();
+      if (data.configured && Array.isArray(data.projects) && data.projects.length) realProjects = data.projects;
+    } catch {}
+  }
+
   function bind() {
     document.querySelectorAll("[data-explore-sort]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -129,9 +140,10 @@ const PixnariaExplore = (() => {
     renderStudios();
   }
 
-  function init() {
+  async function init() {
     if (!$('[data-explore-page]')) return;
     bind();
+    await loadRealProjects();
     render();
   }
 

@@ -871,7 +871,11 @@ def sign(value):
     return true;
   }
 
-  function saveProjectLocal() {
+  async function saveProjectLocal() {
+    if (window.PixnariaEditorGitHubSync?.repo) {
+      const saved = await window.PixnariaEditorGitHubSync.save();
+      if (saved) return;
+    }
     const project = serializeProject();
     localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(project));
     log("project saved locally");
@@ -1277,6 +1281,10 @@ def sign(value):
     return serializeProject();
   }
 
+  function loadProjectFromExternal(project) {
+    return applyProject(project);
+  }
+
   function stopMockEngineForCanvas() {
     if (engineRunning) stopEngine();
   }
@@ -1308,7 +1316,7 @@ def sign(value):
     log(message);
   }
 
-  const api = { init, getProjectForEngine, stopMockEngineForCanvas, updateNodesFromEngineSnapshot, setCanvasPlayState, writeEditorLog };
+  const api = { init, getProjectForEngine, loadProjectFromExternal, stopMockEngineForCanvas, updateNodesFromEngineSnapshot, setCanvasPlayState, writeEditorLog };
   window.PixnariaEditorPreview = api;
   return api;
 })();

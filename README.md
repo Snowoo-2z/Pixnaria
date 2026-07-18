@@ -4,4 +4,4 @@ Pixnaria is a modern open-source coding platform concept for creating 2D games a
 
 ## Current status
 
-On progress ! Check the website (Pixnaria.vercel.app)
+On progress ! Check the website [Pixnaria.vercel.app](https://pixnaria.vercel.app)

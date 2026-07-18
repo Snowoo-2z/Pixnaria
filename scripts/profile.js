@@ -56,13 +56,26 @@ const PixnariaProfilePage = (() => {
 
   async function loadCurrentUser() {
     try {
-      const data = await api('/api/auth/me');
-      const user = normalizeSessionUser(data);
-      if (user) localStorage.setItem('pixnaria_mock_user', JSON.stringify(user));
-      return user;
-    } catch {
-      return localUser();
-    }
+      const res = await fetch('/api/supabase/profile', { credentials: 'same-origin' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.profile) {
+          localStorage.setItem('pixnaria_mock_user', JSON.stringify(data.profile));
+          return data.profile;
+        }
+      }
+    } catch {}
+
+    try {
+      const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+      if (res.ok) {
+        const data = await res.json();
+        const user = normalizeSessionUser(data);
+        if (user) localStorage.setItem('pixnaria_mock_user', JSON.stringify(user));
+        return user;
+      }
+    } catch {}
+    return localUser();
   }
 
   function avatar(user, big = true) {
@@ -134,13 +147,13 @@ const PixnariaProfilePage = (() => {
         return;
       }
       try {
-        const data = await api('/api/auth/profile', {
+        const data = await api('/api/supabase/profile', {
           method: 'POST',
           body: JSON.stringify({ displayName, bio, avatarData: avatarData || viewedUser.avatarData || null })
         });
-        currentUser = data.user;
-        viewedUser = data.user;
-        localStorage.setItem('pixnaria_mock_user', JSON.stringify(data.user));
+        currentUser = data.profile || data.user;
+        viewedUser = currentUser;
+        localStorage.setItem('pixnaria_mock_user', JSON.stringify(currentUser));
         render();
       } catch (error) {
         alert(error.message);
