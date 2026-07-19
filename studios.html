@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studios — Pixnaria</title>
+  <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
+  <link rel="stylesheet" href="styles/main.css"><link rel="stylesheet" href="styles/responsive.css"><link rel="stylesheet" href="styles/site-clean.css"><link rel="stylesheet" href="styles/studios.css">
+</head>
+<body data-studios-page>
+<header class="site-header"><div class="container navbar"><div class="navbar__left"><a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a><nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a><a class="nav-link nav-link--active" href="studios.html">Studios</a></nav></div><div class="navbar__right"><a class="nav-link" href="messages.html">💬 Messages</a><a class="nav-link" href="projects.html">▣ Projects</a><a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a><button class="icon-button menu-button" type="button" data-menu-button>☰</button></div></div></header>
+<main class="app-main"><div class="container"><div class="page-titlebar"><div><h1>Studios</h1><p>Collect projects and build with other creators.</p></div><button class="button button--primary" type="button" data-create-studio-open>+ New studio</button></div><div class="auth-status" data-studios-status>Loading studios…</div><section class="studios-grid" data-studios-list></section></div></main>
+<dialog class="project-modal" data-studio-modal><div class="project-modal__head"><h2>Create studio</h2><button class="icon-button" type="button" data-studio-close>×</button></div><div class="project-modal__body"><form class="project-form" data-create-studio-form><label class="field"><span>Name</span><input name="name" placeholder="Pixnaria Creators" required maxlength="60"></label><label class="field"><span>Description</span><textarea name="description" placeholder="What is this studio about?" maxlength="500"></textarea></label><div class="form-actions"><button class="button button--primary" type="submit">Create</button><button class="button button--ghost" type="button" data-studio-close>Cancel</button></div></form></div></dialog>
+<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Community studios.</p></div><nav class="footer-links"><a href="explore.html">Explorer</a><a href="privacy.html">Privacy</a></nav></div></footer>
+<script src="scripts/mock-data.js"></script><script src="scripts/navigation.js"></script><script src="scripts/session.js"></script><script src="scripts/app.js"></script><script src="scripts/studios.js"></script>
+</body></html>

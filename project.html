@@ -13,78 +13,94 @@
 <body data-project-page>
   <header class="site-header">
     <div class="container navbar">
-      <div class="navbar__left"><a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a><nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav></div>
-      <div class="navbar__right"><a class="nav-link" href="messages.html">💬 Messages</a><a class="nav-link" href="projects.html">▣ Projects</a><a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a><div class="profile-wrap" data-requires-auth hidden><button class="profile-button" type="button" data-profile-button><span data-username>Guest</span><span data-avatar></span></button><div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="projects.html">Projects</a><button class="profile-menu__button" type="button" data-logout>Logout</button></div></div><button class="icon-button menu-button" type="button" data-menu-button>☰</button></div>
+      <div class="navbar__left">
+        <a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
+        <nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav>
+      </div>
+      <div class="navbar__right">
+        <a class="nav-link" href="messages.html">💬 Messages</a>
+        <a class="nav-link" href="projects.html">▣ Projects</a>
+        <a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a>
+        <div class="profile-wrap" data-requires-auth hidden>
+          <button class="profile-button" type="button" data-profile-button><span data-username>Guest</span><span data-avatar></span></button>
+          <div class="profile-menu" data-profile-menu><a href="profile.html">Profile</a><a href="projects.html">Projects</a><button class="profile-menu__button" type="button" data-logout>Logout</button></div>
+        </div>
+        <button class="icon-button menu-button" type="button" data-menu-button>☰</button>
+      </div>
     </div>
     <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="auth.html" data-auth-link>Continue with GitHub</a></div>
   </header>
 
-  <main class="app-main">
+  <main class="project-view-page">
     <div class="container">
-      <div class="page-titlebar">
-        <div><h1 data-project-title>Project</h1><p><span data-project-repo>owner/repo</span></p></div>
-        <div class="hero__actions"><a class="button button--primary" data-inside href="editor.html">Look inside</a><a class="button button--ghost" data-project-github href="#" target="_blank" rel="noreferrer">GitHub</a></div>
-      </div>
-
       <div class="auth-status" data-project-status>Loading project…</div>
 
-      <section class="clean-grid" data-project-loaded>
-        <div class="clean-list">
-          <article class="clean-card">
-            <h2>Description</h2>
-            <p class="profile-about" data-project-description></p>
-          </article>
-
-          <article class="clean-card">
-            <h2>Repository files</h2>
-            <ul class="credits-list" data-project-files></ul>
-          </article>
-
-          <article class="clean-card">
-            <h2>Credits</h2>
-            <ul class="credits-list" data-credits-list></ul>
-          </article>
-
-          <article class="clean-card">
-            <h2>Comments</h2>
-            <p class="project-meta" data-social-note></p>
-            <form class="comment-form" data-comment-form>
-              <input placeholder="Write a comment" maxlength="240" required>
-              <button class="button button--primary" type="submit">Send</button>
-            </form>
-            <ul class="comment-list" data-comment-list></ul>
-          </article>
+      <section class="scratch-project-viewer" data-project-loaded>
+        <div class="project-stage-card">
+          <div class="project-stage-toolbar">
+            <button class="stage-control stage-control--play" type="button" data-project-run>▶</button>
+            <button class="stage-control" type="button" data-project-stop>■</button>
+            <span data-project-runtime-status>Ready</span>
+          </div>
+          <canvas class="project-stage-canvas" width="960" height="540" data-project-canvas aria-label="Project preview"></canvas>
         </div>
 
-        <aside class="clean-list">
-          <article class="clean-card">
-            <h2>Project stats</h2>
-            <div class="project-stats">
-              <div class="project-stat"><strong data-project-likes>0</strong><small>Pixnaria likes</small></div>
-              <div class="project-stat"><strong data-project-favorites>0</strong><small>Favorites</small></div>
-              <div class="project-stat"><strong data-project-stars>0</strong><small>GitHub stars</small></div>
-            </div>
-            <div class="project-stats">
-              <div class="project-stat"><strong data-project-forks>0</strong><small>Forks</small></div>
-              <div class="project-stat"><strong data-project-updated>—</strong><small>Updated</small></div>
-            </div>
-          </article>
+        <aside class="project-info-card">
+          <h1 data-project-title>Project</h1>
+          <a class="project-author-link" data-project-author-link href="#">by <strong data-project-author>creator</strong></a>
+          <p class="project-description" data-project-description></p>
 
-          <article class="clean-card">
-            <h2>Actions</h2>
-            <div class="project-actions">
-              <button class="button button--primary" type="button" data-like>♥ Like</button>
-              <button class="button button--ghost" type="button" data-favorite>★ Favorite</button>
-              <button class="button button--ghost danger" type="button" data-report>Report</button>
-            </div>
-          </article>
+          <div class="project-social-row">
+            <button class="project-social-button" type="button" data-like>♥ <strong data-project-likes>0</strong></button>
+            <button class="project-social-button" type="button" data-favorite>★ <strong data-project-favorites>0</strong></button>
+            <span class="project-social-button">👁 <strong data-project-views>0</strong></span>
+          </div>
+
+          <div class="project-action-stack">
+            <a class="button button--primary" data-inside href="editor.html">Look inside</a>
+            <a class="button button--ghost" data-project-source href="#" target="_blank" rel="noreferrer">Source</a>
+            <button class="button button--ghost danger" type="button" data-report>Report</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="project-detail-grid" data-project-loaded>
+        <article class="project-detail-card">
+          <h2>Instructions</h2>
+          <p data-project-instructions>Press play to preview this Pixnaria project.</p>
+        </article>
+
+        <article class="project-detail-card">
+          <h2>Notes and credits</h2>
+          <ul class="credits-list" data-credits-list></ul>
+        </article>
+      </section>
+
+      <section class="project-comments-layout" data-project-loaded>
+        <article class="project-detail-card project-comments-card">
+          <h2>Comments</h2>
+          <p class="project-meta" data-social-note></p>
+          <form class="comment-form" data-comment-form>
+            <input placeholder="Write a comment" maxlength="240" required>
+            <button class="button button--primary" type="submit">Send</button>
+          </form>
+          <ul class="comment-list" data-comment-list></ul>
+        </article>
+
+        <aside class="project-detail-card">
+          <h2>Project files</h2>
+          <ul class="credits-list" data-project-files></ul>
         </aside>
       </section>
     </div>
   </main>
 
-  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Public GitHub project page.</p></div><nav class="footer-links"><a href="explore.html">Explorer</a><a href="privacy.html">Privacy</a></nav></div></footer>
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Public Pixnaria project page.</p></div><nav class="footer-links"><a href="explore.html">Explorer</a><a href="privacy.html">Privacy</a></nav></div></footer>
 
-  <script src="scripts/mock-data.js"></script><script src="scripts/navigation.js"></script><script src="scripts/session.js"></script><script src="scripts/app.js"></script><script src="scripts/project-page.js"></script>
+  <script src="scripts/mock-data.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/session.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/project-page.js"></script>
 </body>
 </html>

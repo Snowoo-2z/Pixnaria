@@ -17,22 +17,12 @@ const PixnariaProjects = (() => {
   }
 
   function cleanTitleFromRepo(name = "") {
-    return name
-      .replace(/^pixnaria-/i, "")
-      .split("-")
-      .filter(Boolean)
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(" ") || name;
+    return name.replace(/^pixnaria-/i, "").split("-").filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ") || name;
   }
 
   function filteredRepos() {
     const q = query.trim().toLowerCase();
-    return repos.filter((repo) => {
-      if (!q) return true;
-      return repo.name.toLowerCase().includes(q)
-        || repo.full_name.toLowerCase().includes(q)
-        || String(repo.description || "").toLowerCase().includes(q);
-    });
+    return repos.filter((repo) => !q || repo.name.toLowerCase().includes(q) || repo.full_name.toLowerCase().includes(q) || String(repo.description || "").toLowerCase().includes(q));
   }
 
   function setStatus(message, type = "") {
@@ -42,66 +32,67 @@ const PixnariaProjects = (() => {
     node.className = `auth-status ${type}`.trim();
   }
 
+  function skeletonRows() {
+    return Array.from({ length: 4 }, () => `
+      <article class="project-row project-row--loading">
+        <div class="project-row__thumb"></div>
+        <div class="project-row__main"><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line mid"></div></div>
+      </article>
+    `).join("");
+  }
+
   function renderRepos() {
-    const grid = $("[data-my-projects]");
+    const listNode = $("[data-my-projects]");
     const count = $("[data-project-count]");
-    if (!grid) return;
+    if (!listNode) return;
 
     const list = filteredRepos();
-    if (count) count.textContent = `${list.length} GitHub repos`;
+    if (count) count.textContent = `${list.length} projects`;
 
     if (loading) {
-      grid.innerHTML = `<div class="empty-projects">Loading GitHub repositories…</div>`;
+      listNode.innerHTML = skeletonRows();
       return;
     }
 
     if (!list.length) {
-      grid.innerHTML = `
-        <div class="empty-projects">
-          <strong>No Pixnaria repository yet.</strong><br>
-          Create your first GitHub project repo to start building.
+      listNode.innerHTML = `
+        <div class="projects-empty-state">
+          <h2>No projects yet</h2>
+          <p>Create your first Pixnaria project to start building.</p>
+          <button class="button button--primary" type="button" data-empty-new-project>+ New project</button>
         </div>
       `;
+      listNode.querySelector("[data-empty-new-project]")?.addEventListener("click", () => $("[data-project-modal]").showModal());
       return;
     }
 
-    grid.innerHTML = list.map((repo) => {
+    listNode.innerHTML = list.map((repo) => {
       const title = cleanTitleFromRepo(repo.name);
       const updated = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString() : "recently";
+      const href = `editor.html?repo=${encodeURIComponent(repo.full_name)}`;
+      const pageHref = `project.html?repo=${encodeURIComponent(repo.full_name)}`;
       return `
-        <article class="my-project-card">
-          <div class="my-project-preview">
-            <div class="my-project-preview__platform"></div>
-            <div class="my-project-preview__player"></div>
+        <article class="project-row">
+          <div class="project-row__thumb" onclick="location.href='${pageHref}'">
+            <div class="project-row__platform"></div>
+            <div class="project-row__player"></div>
           </div>
-          <div class="my-project-card__body">
-            <div class="project-card__topline">
-              <span class="pill pill--featured">GitHub</span>
+          <div class="project-row__main">
+            <div class="project-row__titleline">
+              <h3>${title}</h3>
               <span class="pill">Public</span>
             </div>
-            <h3>${title}</h3>
-            <p>${repo.description || "Pixnaria project repository."}</p>
-            <div class="project-meta">
-              <span>${repo.full_name}</span>
-              <span>Updated ${updated}</span>
-            </div>
-            <div class="my-project-card__actions">
-              <a class="button button--primary button--small" href="editor.html?repo=${encodeURIComponent(repo.full_name)}">Open editor</a>
-              <a class="button button--ghost button--small" href="${repo.html_url}" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="button button--ghost button--small" href="project.html?repo=${encodeURIComponent(repo.full_name)}">View page</a>
-              <button class="button button--ghost button--small" type="button" data-copy-repo="${repo.full_name}">Copy name</button>
-            </div>
+            <p>${repo.description || "Pixnaria project."}</p>
+            <div class="project-row__meta"><span>${repo.full_name}</span><span>Updated ${updated}</span></div>
+          </div>
+          <div class="project-row__actions">
+            <a class="button button--primary button--small" href="${href}">Edit</a>
+            <a class="button button--ghost button--small" href="${pageHref}">View</a>
+            <a class="button button--ghost button--small" href="${repo.html_url}" target="_blank" rel="noreferrer">Source</a>
           </div>
         </article>
       `;
     }).join("");
-
-    grid.querySelectorAll("[data-copy-repo]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        await navigator.clipboard?.writeText(button.dataset.copyRepo);
-        setStatus(`Copied ${button.dataset.copyRepo}`, "success");
-      });
-    });
   }
 
   async function loadRepos() {
@@ -110,10 +101,10 @@ const PixnariaProjects = (() => {
     try {
       const data = await api("/api/github/repos");
       repos = data.repos || [];
-      setStatus("GitHub repositories loaded.", "success");
+      setStatus("Projects loaded.", "success");
     } catch (error) {
       repos = [];
-      setStatus(`${error.message}. Sign in with GitHub and make sure public_repo is authorized.`, "error");
+      setStatus(`${error.message}. Sign in again if needed.`, "error");
     } finally {
       loading = false;
       renderRepos();
@@ -121,55 +112,38 @@ const PixnariaProjects = (() => {
   }
 
   function slugify(value) {
-    return String(value || "")
-      .toLowerCase()
-      .replace(/[^a-z0-9_-]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .slice(0, 60);
+    return String(value || "").toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60);
   }
 
   async function createRepo(data) {
     const title = data.title.trim();
     if (!title) return;
     const repoName = `pixnaria-${slugify(title)}`;
-    setStatus(`Creating ${repoName} on GitHub…`);
+    setStatus(`Creating ${title}…`);
     try {
       const result = await api("/api/github/repos", {
         method: "POST",
-        body: JSON.stringify({
-          title,
-          repoName,
-          description: data.description || `Pixnaria project: ${title}`
-        })
+        body: JSON.stringify({ title, repoName, description: data.description || `Pixnaria project: ${title}` })
       });
-      setStatus(`Created ${result.repo.full_name}.`, "success");
+      setStatus(`Created ${result.repo.name}.`, "success");
       $("[data-project-modal]")?.close();
       await loadRepos();
     } catch (error) {
-      setStatus(`GitHub repo creation failed: ${error.message}`, "error");
+      setStatus(`Creation failed: ${error.message}`, "error");
     }
   }
 
   function bind() {
     $("[data-open-project-modal]")?.addEventListener("click", () => $("[data-project-modal]").showModal());
-    document.querySelectorAll("[data-close-project-modal]").forEach((button) => {
-      button.addEventListener("click", () => $("[data-project-modal]").close());
-    });
+    document.querySelectorAll("[data-close-project-modal]").forEach((button) => button.addEventListener("click", () => $("[data-project-modal]").close()));
 
     $("[data-create-project-form]")?.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
-      createRepo({
-        title: String(data.get("title") || "").trim(),
-        description: String(data.get("description") || "").trim()
-      });
+      createRepo({ title: String(data.get("title") || "").trim(), description: String(data.get("description") || "").trim() });
     });
 
-    $("[data-project-search]")?.addEventListener("input", (event) => {
-      query = event.target.value;
-      renderRepos();
-    });
-
+    $("[data-project-search]")?.addEventListener("input", (event) => { query = event.target.value; renderRepos(); });
     $("[data-refresh-repos]")?.addEventListener("click", loadRepos);
   }
 

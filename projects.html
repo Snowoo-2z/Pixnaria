@@ -7,9 +7,8 @@
   <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/responsive.css">
-  <link rel="stylesheet" href="styles/editor.css">
-  <link rel="stylesheet" href="styles/projects.css">
   <link rel="stylesheet" href="styles/site-clean.css">
+  <link rel="stylesheet" href="styles/projects.css">
 </head>
 <body data-protected-page data-projects-page>
   <header class="site-header">
@@ -32,56 +31,59 @@
     <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="profile.html">Profile</a><a href="messages.html">Messages</a><a href="auth.html" data-auth-link>Continue with GitHub</a></div>
   </header>
 
-  <main class="projects-page">
+  <main class="projects-dashboard">
     <div class="container">
-      <section class="page-hero__card projects-hero-clean">
+      <div class="projects-dashboard__top">
         <div>
-          <span class="kicker">GitHub projects</span>
-          <h1><span class="gradient-text">My projects</span></h1>
-          <p>Your Pixnaria cloud projects are public GitHub repositories. Create a project repo, open it in the editor, or inspect it on GitHub.</p>
+          <h1>My Projects</h1>
+          <p>Create, edit and publish Pixnaria projects.</p>
         </div>
-        <div class="hero__actions">
-          <button class="button button--primary" type="button" data-open-project-modal>+ New GitHub project</button>
+        <div class="projects-dashboard__actions">
+          <button class="button button--primary" type="button" data-open-project-modal>+ New project</button>
           <button class="button button--ghost" type="button" data-refresh-repos>Refresh</button>
         </div>
-      </section>
+      </div>
 
-      <section>
-        <div class="projects-toolbar">
-          <label class="projects-search"><input data-project-search placeholder="Search GitHub repos..."></label>
-          <div class="projects-actions"><span class="pill"><span data-project-count>0 GitHub repos</span></span></div>
+      <section class="projects-dashboard__bar">
+        <label class="projects-dashboard__search">
+          <span>Search</span>
+          <input data-project-search placeholder="Search your projects...">
+        </label>
+        <div class="projects-dashboard__meta">
+          <span class="pill"><span data-project-count>0 projects</span></span>
+          <span class="pill">Cloud sync</span>
         </div>
-
-        <div class="auth-status" data-project-status>Loading GitHub repositories…</div>
-        <div class="my-projects-grid" data-my-projects style="margin-top:1rem"></div>
       </section>
+
+      <div class="auth-status" data-project-status>Loading projects…</div>
+
+      <section class="projects-list" data-my-projects></section>
     </div>
   </main>
 
   <dialog class="project-modal" data-project-modal>
     <div class="project-modal__head">
-      <h2>Create GitHub project</h2>
+      <h2>Create project</h2>
       <button class="icon-button" type="button" data-close-project-modal aria-label="Close">×</button>
     </div>
     <div class="project-modal__body">
       <form class="project-form" data-create-project-form>
         <label class="field"><span>Project title</span><input name="title" placeholder="Neon Platformer" required maxlength="60"></label>
         <label class="field"><span>Description</span><textarea name="description" placeholder="Describe your project..." maxlength="220"></textarea></label>
-        <p class="project-meta">Pixnaria will create a public GitHub repository named <strong>pixnaria-your-project</strong> with starter Pixnaria files.</p>
-        <div class="form-actions"><button class="button button--primary" type="submit">Create repo</button><button class="button button--ghost" type="button" data-close-project-modal>Cancel</button></div>
+        <p class="project-meta">Pixnaria will create a public cloud project with starter files.</p>
+        <div class="form-actions"><button class="button button--primary" type="submit">Create</button><button class="button button--ghost" type="button" data-close-project-modal>Cancel</button></div>
       </form>
     </div>
   </dialog>
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Pixnaria projects are public GitHub repositories.</p></div>
-      <nav class="footer-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="editor.html">Editor</a></nav>
+      <div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Your Pixnaria dashboard.</p></div>
+      <nav class="footer-links"><a href="explore.html">Explorer</a><a href="editor.html">Editor</a><a href="privacy.html">Privacy</a></nav>
     </div>
   </footer>
 
   <script src="scripts/mock-data.js"></script>
-  <script src="scripts/i18n.js"></script>
   <script src="scripts/navigation.js"></script>
   <script src="scripts/session.js"></script>
   <script src="scripts/app.js"></script>

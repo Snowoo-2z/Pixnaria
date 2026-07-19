@@ -114,10 +114,15 @@ module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const repos = await github(session.githubToken, '/user/repos?visibility=public&affiliation=owner&sort=updated&per_page=100');
+      const pixnariaRepos = repos.filter((repo) => repo.name.startsWith('pixnaria-'));
+      await Promise.allSettled(pixnariaRepos.map((repo) => indexProjectInSupabase(
+        session,
+        repo,
+        repo.name.replace(/^pixnaria-/i, '').replace(/-/g, ' ') || repo.name,
+        repo.description || 'Pixnaria project.'
+      )));
       return sendJson(res, 200, {
-        repos: repos
-          .filter((repo) => repo.name.startsWith('pixnaria-'))
-          .map((repo) => ({ name: repo.name, full_name: repo.full_name, html_url: repo.html_url, updated_at: repo.updated_at, description: repo.description }))
+        repos: pixnariaRepos.map((repo) => ({ name: repo.name, full_name: repo.full_name, html_url: repo.html_url, updated_at: repo.updated_at, description: repo.description }))
       });
     }
 

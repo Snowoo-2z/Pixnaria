@@ -1,7 +1,7 @@
 const PixnariaProfilePage = (() => {
   const USERNAME_RE = /^[A-Za-z0-9_-]+$/;
   let currentUser = null;
-  let viewedUser = null;
+  let viewed = null;
   let avatarData = null;
 
   const $ = (selector) => document.querySelector(selector);
@@ -23,59 +23,16 @@ const PixnariaProfilePage = (() => {
     return data;
   }
 
-  function localUser() {
-    try { return JSON.parse(localStorage.getItem('pixnaria_mock_user') || 'null'); }
-    catch { return null; }
+  function setStatus(message, type = '') {
+    const node = $('[data-profile-status]');
+    if (!node) return;
+    node.textContent = message;
+    node.className = `auth-status ${type}`.trim();
   }
 
-  function isAdminName(name) {
-    return ['snowoo-2z', 'snowoo'].includes(String(name || '').toLowerCase());
-  }
-
-  function normalizeSessionUser(data) {
-    if (data?.pixnariaProfile) return data.pixnariaProfile;
-    if (!data?.github) return null;
-    const gh = data.github;
-    const admin = isAdminName(gh.login);
-    return {
-      id: admin ? 'user_snowoo' : `pix_${gh.id}`,
-      username: gh.login,
-      githubUsername: gh.login,
-      githubId: gh.id,
-      githubProfileUrl: gh.html_url,
-      displayName: gh.login,
-      bio: '',
-      avatarInitial: gh.login.charAt(0).toUpperCase(),
-      avatarColor: admin ? 'creator' : 'default',
-      role: admin ? 'creator' : 'user',
-      badges: admin ? ['Creator', 'Admin'] : [],
-      joinedAt: new Date().toISOString().slice(0, 10),
-      githubConnected: true
-    };
-  }
-
-  async function loadCurrentUser() {
-    try {
-      const res = await fetch('/api/supabase/profile', { credentials: 'same-origin' });
-      if (res.ok) {
-        const data = await res.json();
-        if (data.profile) {
-          localStorage.setItem('pixnaria_mock_user', JSON.stringify(data.profile));
-          return data.profile;
-        }
-      }
-    } catch {}
-
-    try {
-      const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
-      if (res.ok) {
-        const data = await res.json();
-        const user = normalizeSessionUser(data);
-        if (user) localStorage.setItem('pixnaria_mock_user', JSON.stringify(user));
-        return user;
-      }
-    } catch {}
-    return localUser();
+  function isOwnProfile() {
+    if (!currentUser || !viewed?.profile) return false;
+    return String(currentUser.githubUsername || currentUser.username).toLowerCase() === String(viewed.profile.githubUsername || viewed.profile.username).toLowerCase();
   }
 
   function avatar(user, big = true) {
@@ -85,41 +42,92 @@ const PixnariaProfilePage = (() => {
     return `<span class="avatar avatar--${user?.avatarColor || 'default'} ${cls}">${initial}</span>`;
   }
 
-  function isOwnProfile() {
-    if (!currentUser || !viewedUser) return false;
-    return String(currentUser.githubUsername || currentUser.username).toLowerCase() === String(viewedUser.githubUsername || viewedUser.username).toLowerCase();
+  function projectCard(project) {
+    const href = project.githubRepo ? `project.html?repo=${encodeURIComponent(project.githubRepo)}` : 'project.html';
+    return `
+      <a class="profile-project-card" href="${href}">
+        ${projectPreview(project)}
+        <div><h3>${project.title}</h3><small>♥ ${project.likes || 0} · ★ ${project.favorites || 0}</small></div>
+      </a>
+    `;
   }
 
-  function renderProjects() {
-    const grid = $('[data-profile-projects]');
-    if (!grid) return;
-    grid.innerHTML = PIXNARIA_PROJECTS.slice(0, 3).map((project) => `
-      <a class="profile-project-mini" href="project.html">
+  function featuredCard(project) {
+    if (!project) return `<div class="scratch-empty">No featured project yet.</div>`;
+    const href = project.githubRepo ? `project.html?repo=${encodeURIComponent(project.githubRepo)}` : 'project.html';
+    return `
+      <a class="profile-featured-project" href="${href}">
         ${projectPreview(project)}
-        <div><h3>${project.title}</h3><small>♥ ${project.likes} · ★ ${project.favorites}</small></div>
+        <div><span class="pill pill--featured">Featured Project</span><h3>${project.title}</h3><p>${project.description || ''}</p></div>
       </a>
-    `).join('');
+    `;
+  }
+
+  async function loadCurrentUser() {
+    try {
+      const data = await api('/api/supabase/profile');
+      if (data.profile) return data.profile;
+    } catch {}
+    try {
+      const data = await api('/api/auth/me');
+      if (data.pixnariaProfile) return data.pixnariaProfile;
+      if (data.github) {
+        const admin = ['snowoo-2z', 'snowoo'].includes(String(data.github.login).toLowerCase());
+        return {
+          username: data.github.login,
+          githubUsername: data.github.login,
+          displayName: data.github.login,
+          githubProfileUrl: data.github.html_url,
+          avatarInitial: data.github.login.charAt(0).toUpperCase(),
+          avatarColor: admin ? 'creator' : 'default',
+          role: admin ? 'creator' : 'user',
+          badges: admin ? ['Creator', 'Admin'] : []
+        };
+      }
+    } catch {}
+    return null;
+  }
+
+  async function loadViewedProfile() {
+    const requested = usernameFromPath();
+    currentUser = await loadCurrentUser();
+    const username = requested || currentUser?.githubUsername || currentUser?.username;
+    if (!username) {
+      location.href = 'auth.html';
+      return;
+    }
+    setStatus('Loading profile…');
+    viewed = await api(`/api/supabase/user?username=${encodeURIComponent(username)}`);
+    setStatus('Profile loaded.', 'success');
   }
 
   function renderEditPanel() {
+    document.querySelectorAll('[data-own-only]').forEach((node) => node.hidden = !isOwnProfile());
     const panel = $('[data-profile-edit-panel]');
     if (!panel) return;
     panel.hidden = !isOwnProfile();
     if (!isOwnProfile()) return;
-    $('[data-edit-display]').value = viewedUser.displayName || viewedUser.username;
-    $('[data-edit-bio]').value = viewedUser.bio || '';
-    $('[data-edit-avatar-preview]').innerHTML = avatar(viewedUser, false);
+    $('[data-edit-display]').value = viewed.profile.displayName || viewed.profile.username;
+    $('[data-edit-bio]').value = viewed.profile.bio || '';
+    $('[data-edit-avatar-preview]').innerHTML = avatar(viewed.profile, false);
   }
 
   function render() {
-    $('[data-profile-avatar]').innerHTML = avatar(viewedUser);
-    $('[data-profile-name]').textContent = viewedUser.displayName || viewedUser.username;
-    $('[data-profile-username]').textContent = `@${viewedUser.githubUsername || viewedUser.username}`;
-    $('[data-profile-bio]').textContent = viewedUser.bio || 'No description yet.';
-    $('[data-profile-badges]').innerHTML = (viewedUser.badges || []).map((badge) => `<span class="pill pill--featured">${badge}</span>`).join('') || '<span class="pill">Creator</span>';
-    const gh = $('[data-profile-github]');
-    if (gh && viewedUser.githubProfileUrl) gh.href = viewedUser.githubProfileUrl;
-    renderProjects();
+    const profile = viewed.profile;
+    $('[data-profile-avatar]').innerHTML = avatar(profile);
+    $('[data-profile-name]').textContent = profile.displayName || profile.username;
+    $('[data-profile-username]').textContent = `@${profile.githubUsername || profile.username}`;
+    $('[data-profile-bio]').textContent = profile.bio || 'No description yet.';
+    $('[data-profile-badges]').innerHTML = (profile.badges || []).map((badge) => `<span class="pill pill--featured">${badge}</span>`).join('') || '<span class="pill">Creator</span>';
+    $('[data-profile-source]').href = profile.githubProfileUrl || '#';
+    $('[data-stat-projects]').textContent = viewed.stats?.projects || 0;
+    $('[data-stat-likes]').textContent = viewed.stats?.likes || 0;
+    $('[data-stat-favorites]').textContent = viewed.stats?.favorites || 0;
+    $('[data-stat-views]').textContent = viewed.stats?.views || 0;
+    $('[data-profile-featured]').innerHTML = featuredCard(viewed.featured);
+    $('[data-profile-projects]').innerHTML = viewed.projects?.length ? viewed.projects.map(projectCard).join('') : '<div class="scratch-empty">No shared projects yet.</div>';
+    $('[data-working-on]').textContent = viewed.projects?.[0] ? `Working on ${viewed.projects[0].title}.` : 'Building Pixnaria projects.';
+    $('[data-profile-activity]').innerHTML = `<li>Joined Pixnaria</li>${viewed.projects?.slice(0, 3).map((p) => `<li>Shared ${p.title}</li>`).join('') || ''}`;
     renderEditPanel();
   }
 
@@ -127,10 +135,7 @@ const PixnariaProfilePage = (() => {
     $('[data-edit-avatar]')?.addEventListener('change', (event) => {
       const file = event.target.files?.[0];
       if (!file) return;
-      if (file.size > 1024 * 1024) {
-        alert('Avatar limit: 1 MB before compression.');
-        return;
-      }
+      if (file.size > 1024 * 1024) return alert('Avatar limit: 1 MB before compression.');
       const reader = new FileReader();
       reader.onload = () => {
         avatarData = String(reader.result);
@@ -140,42 +145,34 @@ const PixnariaProfilePage = (() => {
     });
 
     $('[data-save-profile-edit]')?.addEventListener('click', async () => {
-      const displayName = $('[data-edit-display]').value.trim() || viewedUser.username;
+      const displayName = $('[data-edit-display]').value.trim() || viewed.profile.username;
       const bio = $('[data-edit-bio]').value.trim();
-      if (!USERNAME_RE.test(displayName)) {
-        alert('Display name can only contain letters, numbers, _ and -.');
-        return;
-      }
+      if (!USERNAME_RE.test(displayName)) return alert('Display name can only contain letters, numbers, _ and -.');
       try {
         const data = await api('/api/supabase/profile', {
           method: 'POST',
-          body: JSON.stringify({ displayName, bio, avatarData: avatarData || viewedUser.avatarData || null })
+          body: JSON.stringify({ displayName, bio, avatarData: avatarData || viewed.profile.avatarData || null })
         });
-        currentUser = data.profile || data.user;
-        viewedUser = currentUser;
-        localStorage.setItem('pixnaria_mock_user', JSON.stringify(currentUser));
+        viewed.profile = data.profile;
+        currentUser = data.profile;
+        localStorage.setItem('pixnaria_mock_user', JSON.stringify(data.profile));
         render();
+        setStatus('Profile saved.', 'success');
       } catch (error) {
-        alert(error.message);
+        setStatus(error.message, 'error');
       }
     });
   }
 
   async function init() {
     if (!$('[data-user-profile-page]')) return;
-    currentUser = await loadCurrentUser();
-    const requested = usernameFromPath();
-    if (!currentUser && !requested) {
-      location.href = 'auth.html';
-      return;
-    }
-    if (requested && (!currentUser || requested.toLowerCase() !== String(currentUser.githubUsername || currentUser.username).toLowerCase())) {
-      viewedUser = { username: requested, githubUsername: requested, displayName: requested, bio: 'Pixnaria creator profile.', badges: isAdminName(requested) ? ['Creator', 'Admin'] : [], avatarInitial: requested.charAt(0).toUpperCase(), avatarColor: isAdminName(requested) ? 'creator' : 'default', githubProfileUrl: `https://github.com/${requested}` };
-    } else {
-      viewedUser = currentUser;
-    }
     bindEdit();
-    render();
+    try {
+      await loadViewedProfile();
+      render();
+    } catch (error) {
+      setStatus(error.message, 'error');
+    }
   }
 
   return { init };

@@ -10,65 +10,38 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/responsive.css">
   <link rel="stylesheet" href="styles/site-clean.css">
+  <link rel="stylesheet" href="styles/scratch-like.css">
 </head>
-<body>
+<body data-home-page>
   <header class="site-header">
     <div class="container navbar">
-      <div class="navbar__left">
-        <a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a>
-        <nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav>
-      </div>
-      <div class="navbar__right">
-        <a class="nav-link" href="messages.html">💬 Messages</a>
-        <a class="nav-link" href="projects.html">▣ Projects</a>
-        <a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a>
-        <div class="profile-wrap" data-requires-auth hidden>
-          <button class="profile-button" type="button" data-profile-button><span data-username>Guest</span><span data-avatar></span></button>
-          <div class="profile-menu" data-profile-menu>
-            <div class="profile-menu__head"><span data-avatar></span><span><strong data-username>Guest</strong><small>GitHub connected</small></span></div>
-            <a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><button class="profile-menu__button" type="button" data-logout>Logout</button>
-          </div>
-        </div>
-        <button class="icon-button menu-button" type="button" data-menu-button>☰</button>
-      </div>
+      <div class="navbar__left"><a class="logo-link" href="index.html"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"></a><nav class="navbar__links"><a class="nav-link" href="explore.html">Explorer</a></nav></div>
+      <div class="navbar__right"><a class="nav-link" href="messages.html">💬 Messages</a><a class="nav-link" href="projects.html">▣ Projects</a><a class="nav-link" href="auth.html" data-auth-link>Continue with GitHub</a><div class="profile-wrap" data-requires-auth hidden><button class="profile-button" type="button" data-profile-button><span data-username>Guest</span><span data-avatar></span></button><div class="profile-menu" data-profile-menu><div class="profile-menu__head"><span data-avatar></span><span><strong data-username>Guest</strong><small>Connected</small></span></div><a href="profile.html">Profile</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><button class="profile-menu__button" type="button" data-logout>Logout</button></div></div><button class="icon-button menu-button" type="button" data-menu-button>☰</button></div>
     </div>
     <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a><a href="auth.html" data-auth-link>Continue with GitHub</a></div>
   </header>
 
-  <main class="app-main">
+  <main class="app-main scratch-home">
     <div class="container">
-      <section class="compact-welcome" data-guest-only>
-        <div><h1><span class="gradient-text">Pixnaria</span></h1><p>Code 2D projects with Python, nodes, GitHub and a custom engine.</p></div>
-        <div class="hero__actions"><a class="button button--primary" href="auth.html">Continue with GitHub</a><a class="button button--ghost" href="explore.html">Explore</a></div>
+      <section class="scratch-welcome" data-guest-only>
+        <div><h1>Pixnaria</h1><p>Create projects, learn Python and share with the community.</p></div>
+        <div class="hero__actions"><a class="button button--primary" href="auth.html">Join Pixnaria</a><a class="button button--ghost" href="explore.html">Explore</a></div>
       </section>
-
-      <section class="compact-welcome" data-requires-auth hidden>
-        <div><h1>Welcome, <span data-username>creator</span>.</h1><p>Continue a project or discover what the community is building.</p></div>
+      <section class="scratch-welcome" data-requires-auth hidden>
+        <div><h1>Hi, <span data-username>creator</span></h1><p>Ready to build something?</p></div>
         <div class="hero__actions"><a class="button button--primary" href="projects.html">My projects</a><a class="button button--ghost" href="editor.html">Editor</a></div>
       </section>
 
-      <section class="clean-grid">
-        <div>
-          <div class="clean-section-head"><h2>Featured Project</h2><a href="project.html">Open</a></div>
-          <div class="featured-card" data-featured-project></div>
-
-          <div class="clean-section-head" style="margin-top:1rem"><h2>Trending</h2><a href="explore.html">See all</a></div>
-          <div class="project-grid" data-trending-projects></div>
-        </div>
-
-        <aside>
-          <div class="clean-section-head"><h2>News</h2></div>
-          <div class="news-list" data-news-list></div>
-          <div class="clean-card" data-requires-auth hidden style="margin-top:1rem"><h3>Admin</h3><p style="color:var(--muted)">Manage announcements.</p><button class="button button--primary" type="button" data-open-news-admin>Manage news</button></div>
-        </aside>
-      </section>
+      <section class="scratch-section"><div class="scratch-section__head"><h2>Featured Project</h2><a href="explore.html">Explore</a></div><div data-home-featured></div></section>
+      <section class="scratch-section"><div class="scratch-section__head"><h2>Trending Projects</h2><a href="explore.html">See all</a></div><div class="scratch-rail" data-home-trending></div></section>
+      <section class="scratch-section"><div class="scratch-section__head"><h2>Recent Projects</h2><a href="explore.html">See all</a></div><div class="scratch-rail" data-home-recent></div></section>
+      <section class="scratch-section"><div class="scratch-section__head"><h2>Studios</h2><a href="studios.html">Discover</a></div><div class="scratch-rail scratch-rail--studios" data-home-studios></div></section>
+      <section class="scratch-section"><div class="scratch-section__head"><h2>News</h2></div><div class="scratch-rail scratch-rail--news" data-home-news></div></section>
     </div>
   </main>
 
-  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Open coding platform powered by GitHub projects.</p></div><nav class="footer-links"><a href="our-team.html">Our Team</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div></footer>
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><img src="assets/logos/pixnaria_site_logo.svg" alt="Pixnaria"><p>Create. Code. Share.</p></div><nav class="footer-links"><a href="our-team.html">Our Team</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div></footer>
 
-  <dialog class="news-dialog" data-news-dialog><div class="dialog-head"><h2>News Manager</h2><button class="icon-button" type="button" data-close-news-admin>×</button></div><div class="dialog-body"><form class="news-form" data-news-form><label class="field"><span>Title</span><input name="title" required></label><label class="field"><span>Content</span><textarea name="content" rows="4" required></textarea></label><label class="field"><span>Category</span><select name="category"><option value="announcement">Announcement</option><option value="update">Update</option></select></label><div class="form-actions"><button class="button button--primary" type="submit">Add</button><button class="button button--ghost" type="button" data-close-news-admin>Close</button></div></form><ul class="admin-news-list" data-admin-news-list></ul></div></dialog>
-
-  <script src="scripts/mock-data.js"></script><script src="scripts/navigation.js"></script><script src="scripts/news-admin.js"></script><script src="scripts/session.js"></script><script src="scripts/app.js"></script>
+  <script src="scripts/mock-data.js"></script><script src="scripts/navigation.js"></script><script src="scripts/session.js"></script><script src="scripts/app.js"></script><script src="scripts/home.js"></script>
 </body>
 </html>

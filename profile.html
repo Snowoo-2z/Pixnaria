@@ -7,8 +7,8 @@
   <link rel="icon" href="assets/logos/pixnaria_favicon.ico">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/responsive.css">
-  <link rel="stylesheet" href="styles/profile.css">
   <link rel="stylesheet" href="styles/site-clean.css">
+  <link rel="stylesheet" href="styles/profile.css">
 </head>
 <body data-user-profile-page>
   <header class="site-header">
@@ -19,30 +19,68 @@
     <div class="container mobile-menu" data-mobile-menu><a href="explore.html">Explorer</a><a href="projects.html">Projects</a><a href="messages.html">Messages</a></div>
   </header>
 
-  <main class="user-profile-page">
+  <main class="profile-scratch-page">
     <div class="container">
-      <section class="profile-cover">
-        <div class="profile-top">
-          <div data-profile-avatar></div>
-          <div class="profile-name">
-            <h1 data-profile-name>Profile</h1>
-            <p data-profile-username>@user</p>
-            <div class="badge-row" data-profile-badges></div>
-          </div>
-          <div class="hero__actions"><a class="button button--primary" href="projects.html">Projects</a><a class="button button--ghost" data-profile-github href="#" target="_blank" rel="noreferrer">GitHub</a></div>
+      <div class="auth-status" data-profile-status>Loading profile…</div>
+
+      <section class="scratch-profile-head">
+        <div data-profile-avatar></div>
+        <div class="scratch-profile-title">
+          <h1 data-profile-name>Profile</h1>
+          <p data-profile-username>@user</p>
+          <div class="badge-row" data-profile-badges></div>
         </div>
-        <div class="profile-stats-row">
-          <div class="profile-stat"><strong>3</strong><small>Projects</small></div>
-          <div class="profile-stat"><strong>128</strong><small>Likes</small></div>
-          <div class="profile-stat"><strong>42</strong><small>Favorites</small></div>
-          <div class="profile-stat"><strong>2026</strong><small>Joined</small></div>
+        <div class="scratch-profile-actions">
+          <a class="button button--primary" href="projects.html" data-own-only hidden>My projects</a>
+          <a class="button button--ghost" data-profile-source href="#" target="_blank" rel="noreferrer">Source</a>
         </div>
       </section>
 
-      <div class="profile-content-grid">
-        <section class="profile-box"><h2>Shared projects</h2><div class="profile-project-strip" data-profile-projects></div></section>
-        <aside class="profile-box"><h2>Description</h2><p class="profile-about" data-profile-bio></p><div data-profile-edit-panel hidden style="margin-top:1rem"><h2>Edit profile</h2><label class="field compact-field"><span>Display name</span><input data-edit-display></label><label class="field compact-field"><span>Description</span><textarea data-edit-bio rows="4" style="width:100%;resize:vertical"></textarea></label><div class="avatar-picker" style="margin:.7rem 0"><div data-edit-avatar-preview></div><label class="field" style="margin:0;flex:1"><span>Custom profile picture</span><input type="file" accept="image/*" data-edit-avatar></label></div><button class="button button--primary" type="button" data-save-profile-edit>Save profile</button></div><h2 style="margin-top:1.2rem">Activity</h2><ul class="activity-list"><li>Published a Pixnaria project</li><li>Connected GitHub</li><li>Joined the community</li></ul></aside>
-      </div>
+      <section class="scratch-profile-stats">
+        <div><strong data-stat-projects>0</strong><small>Projects</small></div>
+        <div><strong data-stat-likes>0</strong><small>Likes</small></div>
+        <div><strong data-stat-favorites>0</strong><small>Favorites</small></div>
+        <div><strong data-stat-views>0</strong><small>Views</small></div>
+      </section>
+
+      <section class="scratch-profile-layout">
+        <div class="scratch-profile-main">
+          <article class="scratch-profile-box" data-featured-box>
+            <div class="scratch-box-head"><h2>Featured Project</h2></div>
+            <div data-profile-featured></div>
+          </article>
+
+          <article class="scratch-profile-box">
+            <div class="scratch-box-head"><h2>Shared Projects</h2><a href="explore.html">Explore</a></div>
+            <div class="scratch-profile-projects" data-profile-projects></div>
+          </article>
+        </div>
+
+        <aside class="scratch-profile-side">
+          <article class="scratch-profile-box">
+            <h2>About me</h2>
+            <p class="profile-about" data-profile-bio></p>
+          </article>
+
+          <article class="scratch-profile-box">
+            <h2>What I’m working on</h2>
+            <p class="profile-about" data-working-on>Building Pixnaria projects.</p>
+          </article>
+
+          <article class="scratch-profile-box" data-profile-edit-panel hidden>
+            <h2>Edit profile</h2>
+            <label class="field compact-field"><span>Display name</span><input data-edit-display></label>
+            <label class="field compact-field"><span>Description</span><textarea data-edit-bio rows="4"></textarea></label>
+            <div class="avatar-picker"><div data-edit-avatar-preview></div><label class="field" style="margin:0;flex:1"><span>Profile picture</span><input type="file" accept="image/*" data-edit-avatar></label></div>
+            <button class="button button--primary" type="button" data-save-profile-edit>Save profile</button>
+          </article>
+
+          <article class="scratch-profile-box">
+            <h2>Activity</h2>
+            <ul class="activity-list" data-profile-activity><li>Joined Pixnaria</li></ul>
+          </article>
+        </aside>
+      </section>
     </div>
   </main>
 

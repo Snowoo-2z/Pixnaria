@@ -83,13 +83,19 @@ async function socialPayload(owner, repo) {
   const project = projectRows[0] || null;
   if (!project) return { configured: true, project: null, likes: 0, favorites: 0, comments: [] };
   const comments = await sb(`/project_comments?project_id=eq.${project.id}&deleted=eq.false&select=id,content,created_at,user_id&order=created_at.desc&limit=30`);
+  const userIds = [...new Set(comments.map((comment) => comment.user_id).filter(Boolean))];
+  let profiles = [];
+  if (userIds.length) {
+    profiles = await sb(`/profiles?id=in.(${userIds.map(encodeURIComponent).join(',')})&select=id,github_username,display_name,avatar_url`);
+  }
+  const profileById = Object.fromEntries(profiles.map((profile) => [profile.id, profile]));
   return {
     configured: true,
     project,
     likes: project.likes_count || 0,
     favorites: project.favorites_count || 0,
     views: project.views_count || 0,
-    comments
+    comments: comments.map((comment) => ({ ...comment, author: profileById[comment.user_id]?.display_name || profileById[comment.user_id]?.github_username || 'Pixnaria user' }))
   };
 }
 
