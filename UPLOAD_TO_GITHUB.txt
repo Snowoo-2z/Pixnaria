@@ -1,5 +1,0 @@
-Upload the CONTENTS of this folder to your GitHub repo.
-Do not upload .env.
-README.md and LICENSE are the only documentation files kept in this upload folder.
-
-New: Admin dashboard uses Supabase reports/users/bans/moderators/featured/news.
