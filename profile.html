@@ -54,6 +54,16 @@
             <div class="scratch-box-head"><h2>Shared Projects</h2><a href="explore.html">Explore</a></div>
             <div class="scratch-profile-projects" data-profile-projects></div>
           </article>
+
+          <article class="scratch-profile-box" data-wall-box>
+            <div class="scratch-box-head"><h2>💬 Wall</h2><small>Public messages on this profile</small></div>
+            <form class="admin-form" data-wall-form data-requires-auth hidden>
+              <textarea name="content" rows="2" maxlength="500" placeholder="Write something public on this wall…" required></textarea>
+              <button class="button button--primary" type="submit">Post</button>
+            </form>
+            <p class="auth-hint" data-guest-only>Sign in with GitHub to post on this wall.</p>
+            <ul class="message-list" data-wall-list><li class="list-item"><span><small>Loading messages…</small></span></li></ul>
+          </article>
         </div>
 
         <aside class="scratch-profile-side">

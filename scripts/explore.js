@@ -84,7 +84,7 @@ const PixnariaExplore = (() => {
     loading = true;
     render();
     try {
-      const res = await fetch('/api/supabase/explore', { credentials: 'same-origin' });
+      const res = await fetch('/api/data/explore', { credentials: 'same-origin' });
       const data = await res.json().catch(() => ({}));
       projects = data.configured && Array.isArray(data.projects) ? data.projects : [];
     } catch { projects = []; }

@@ -79,7 +79,7 @@ const PixnariaHome = (() => {
     loading = true;
     render();
     try {
-      const res = await fetch('/api/supabase/home', { credentials: 'same-origin' });
+      const res = await fetch('/api/data/home', { credentials: 'same-origin' });
       const json = await res.json().catch(() => ({}));
       if (json.configured) data = json;
       else data = { featured: [], trending: [], recent: [], studios: [], news: [] };

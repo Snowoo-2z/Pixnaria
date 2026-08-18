@@ -29,7 +29,7 @@ async function loadCommunityProjects() {
   PIXNARIA_PROJECTS_LOADING = true;
   renderProjects();
   try {
-    const res = await fetch('/api/supabase/explore', { credentials: 'same-origin' });
+    const res = await fetch('/api/data/explore', { credentials: 'same-origin' });
     const data = await res.json().catch(() => ({}));
     PIXNARIA_COMMUNITY_PROJECTS = data.configured && Array.isArray(data.projects) ? data.projects : [];
   } catch {

@@ -65,7 +65,7 @@ const PixnariaProfilePage = (() => {
 
   async function loadCurrentUser() {
     try {
-      const data = await api('/api/supabase/profile');
+      const data = await api('/api/data/profile');
       if (data.profile) return data.profile;
     } catch {}
     try {
@@ -97,8 +97,78 @@ const PixnariaProfilePage = (() => {
       return;
     }
     setStatus('Loading profile…');
-    viewed = await api(`/api/supabase/user?username=${encodeURIComponent(username)}`);
+    viewed = await api(`/api/data/user?username=${encodeURIComponent(username)}`);
     setStatus('Profile loaded.', 'success');
+    await loadWall();
+  }
+
+  let wallMessages = [];
+
+  async function loadWall() {
+    try {
+      const data = await api(`/api/data/messages?username=${encodeURIComponent(viewed.profile.githubUsername || viewed.profile.username)}`);
+      wallMessages = data.messages || [];
+    } catch { wallMessages = []; }
+    renderWall();
+  }
+
+  function wallAvatar(author) {
+    if (author?.avatarData) return `<span class="avatar avatar--${author.avatarColor || 'default'}" style="width:28px;height:28px;font-size:.8rem"><img src="${author.avatarData}" alt="${author.displayName}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></span>`;
+    const initial = (author?.displayName || author?.username || '?').charAt(0).toUpperCase();
+    return `<span class="avatar avatar--${author?.avatarColor || 'default'}" style="width:28px;height:28px;font-size:.8rem">${initial}</span>`;
+  }
+
+  function renderWall() {
+    const list = $('[data-wall-list]');
+    if (!list) return;
+    if (!wallMessages.length) {
+      list.innerHTML = '<li class="list-item"><span><small>No messages yet. Be the first to write something.</small></span></li>';
+    } else {
+      list.innerHTML = wallMessages.map((message) => `
+        <li class="list-item" data-message-id="${message.id}">
+          <span style="display:flex;align-items:center;gap:.5rem">
+            ${wallAvatar(message.author)}
+            <span><strong>${message.author.displayName || message.author.username}</strong><small>${message.content}</small></span>
+          </span>
+          <span class="admin-actions">
+            <small>${new Date(message.createdAt).toLocaleDateString()}</small>
+            ${(currentUser && (store_sameUser(currentUser, message.author) || isOwnProfile())) ? `<button class="button button--ghost button--small" type="button" data-delete-message="${message.id}">Delete</button>` : ''}
+          </span>
+        </li>
+      `).join('');
+      list.querySelectorAll('[data-delete-message]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          try {
+            await api('/api/data/messages', { method: 'POST', body: JSON.stringify({ action: 'delete', messageId: button.dataset.deleteMessage }) });
+            await loadWall();
+          } catch (error) { setStatus(error.message, 'error'); }
+        });
+      });
+    }
+    const form = $('[data-wall-form]');
+    if (form) form.hidden = !currentUser;
+  }
+
+  function store_sameUser(user, author) {
+    return String(user.githubUsername || user.username || '').toLowerCase() === String(author.username || '').toLowerCase();
+  }
+
+  function bindWall() {
+    $('[data-wall-form]')?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const textarea = form.querySelector('textarea');
+      const content = textarea.value.trim();
+      if (!content) return;
+      try {
+        await api('/api/data/messages', {
+          method: 'POST',
+          body: JSON.stringify({ username: viewed.profile.githubUsername || viewed.profile.username, content })
+        });
+        textarea.value = '';
+        await loadWall();
+      } catch (error) { setStatus(error.message, 'error'); }
+    });
   }
 
   function renderEditPanel() {
@@ -149,7 +219,7 @@ const PixnariaProfilePage = (() => {
       const bio = $('[data-edit-bio]').value.trim();
       if (!USERNAME_RE.test(displayName)) return alert('Display name can only contain letters, numbers, _ and -.');
       try {
-        const data = await api('/api/supabase/profile', {
+        const data = await api('/api/data/profile', {
           method: 'POST',
           body: JSON.stringify({ displayName, bio, avatarData: avatarData || viewed.profile.avatarData || null })
         });
@@ -167,6 +237,7 @@ const PixnariaProfilePage = (() => {
   async function init() {
     if (!$('[data-user-profile-page]')) return;
     bindEdit();
+    bindWall();
     try {
       await loadViewedProfile();
       render();

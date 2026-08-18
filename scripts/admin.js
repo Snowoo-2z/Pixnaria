@@ -27,11 +27,11 @@ const PixnariaAdmin = (() => {
   }
 
   async function load() {
-    setStatus('Loading Supabase admin data…');
+    setStatus('Loading Pixnaria admin data…');
     try {
-      state = await api('/api/supabase/admin');
-      if (!state.configured) setStatus(state.error || 'Supabase is not configured.', 'error');
-      else setStatus('Supabase admin data loaded.', 'success');
+      state = await api('/api/data/admin');
+      if (!state.configured) setStatus(state.error || 'Pixnaria data store is not configured.', 'error');
+      else setStatus('Pixnaria admin data loaded.', 'success');
       render();
     } catch (error) {
       setStatus(error.message, 'error');
@@ -40,7 +40,7 @@ const PixnariaAdmin = (() => {
 
   async function action(payload) {
     try {
-      state = await api('/api/supabase/admin', { method: 'POST', body: JSON.stringify(payload) });
+      state = await api('/api/data/admin', { method: 'POST', body: JSON.stringify(payload) });
       setStatus('Action saved.', 'success');
       render();
     } catch (error) {

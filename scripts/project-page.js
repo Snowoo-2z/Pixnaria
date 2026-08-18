@@ -164,7 +164,7 @@ const PixnariaProjectPage = (() => {
   }
 
   async function loadSocial() {
-    try { socialData = await api(`/api/supabase/project-social?repo=${encodeURIComponent(repoFullName)}`); }
+    try { socialData = await api(`/api/data/project-social?repo=${encodeURIComponent(repoFullName)}`); }
     catch (error) { socialData = { configured: false, likes: 0, favorites: 0, views: 0, comments: [], error: error.message }; }
   }
 
@@ -223,7 +223,7 @@ const PixnariaProjectPage = (() => {
   async function socialAction(action, extra = {}) {
     if (!repoFullName || !projectData) return;
     try {
-      socialData = await api('/api/supabase/project-social', {
+      socialData = await api('/api/data/project-social', {
         method: 'POST',
         body: JSON.stringify({
           action,

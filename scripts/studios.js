@@ -30,7 +30,7 @@ const PixnariaStudios = (() => {
   async function load() {
     setStatus('Loading studios…');
     try {
-      const data = await api('/api/supabase/studios');
+      const data = await api('/api/data/studios');
       studios = data.studios || [];
       setStatus('Studios loaded.', 'success');
       render();
@@ -46,7 +46,7 @@ const PixnariaStudios = (() => {
       event.preventDefault();
       const form = new FormData(event.currentTarget);
       try {
-        const data = await api('/api/supabase/studios', { method: 'POST', body: JSON.stringify({ action: 'create', name: form.get('name'), description: form.get('description') }) });
+        const data = await api('/api/data/studios', { method: 'POST', body: JSON.stringify({ action: 'create', name: form.get('name'), description: form.get('description') }) });
         location.href = `studio.html?id=${data.studio.id}`;
       } catch (error) { setStatus(error.message, 'error'); }
     });

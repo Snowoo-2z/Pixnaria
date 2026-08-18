@@ -211,3 +211,57 @@
   .scratch-profile-actions { justify-content: start; }
   .scratch-profile-stats { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Public profile "Wall" — messages left by other Pixnaria users. */
+[data-wall-box] .message-list {
+  display: grid;
+  gap: .8rem;
+  margin-top: .8rem;
+}
+
+[data-wall-box] .list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .9rem;
+  border-radius: 18px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+[data-wall-box] .list-item small {
+  display: block;
+  color: var(--muted);
+  margin-top: .2rem;
+}
+
+[data-wall-box] .admin-form {
+  display: flex;
+  gap: .6rem;
+  align-items: flex-end;
+  margin-top: .6rem;
+}
+
+[data-wall-box] .admin-form textarea {
+  flex: 1;
+  resize: vertical;
+  min-height: 44px;
+  padding: .7rem .9rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--panel-soft);
+  color: #f5f3ff;
+  font: inherit;
+}
+
+[data-wall-box] .admin-form textarea:focus {
+  outline: none;
+  border-color: rgba(168, 85, 247, .6);
+}
+
+[data-wall-box] .admin-actions {
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+}

@@ -29,13 +29,13 @@ const PixnariaStudioPage = (() => {
     id = new URLSearchParams(location.search).get('id');
     if (!id) return setStatus('Missing studio id.', 'error');
     setStatus('Loading studio…');
-    data = await api(`/api/supabase/studios?id=${encodeURIComponent(id)}`);
+    data = await api(`/api/data/studios?id=${encodeURIComponent(id)}`);
     setStatus('Studio loaded.', 'success');
     render();
   }
 
   async function action(payload) {
-    data = await api('/api/supabase/studios', { method: 'POST', body: JSON.stringify({ studioId: id, ...payload }) });
+    data = await api('/api/data/studios', { method: 'POST', body: JSON.stringify({ studioId: id, ...payload }) });
     render();
   }
 
